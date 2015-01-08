@@ -10,7 +10,6 @@
 angular.module('ZWave.logReader', [
     'ui.router',
     'ui.bootstrap',
-    'ngLocalize',
     'angular-growl',
     'ngVis',
     'ResizePanel',
@@ -26,7 +25,7 @@ angular.module('ZWave.logReader', [
                     templateUrl: 'tools/zwave/logreader.tpl.html'
                 }
             },
-            data: {pageTitle: 'Charting'},
+            data: {pageTitle: 'ZWave Log Reader'},
             resolve: {
                 // Make sure the localisation files are resolved before the controller runs
                 localisations: function (locale) {
@@ -49,6 +48,7 @@ angular.module('ZWave.logReader', [
         // Some globals used by the processor
         var logTime = 0;
         var lastNode = 0;
+        var lastSendData = {};
 
         $scope.data = [];
         $scope.countLines = 0;
@@ -146,6 +146,7 @@ angular.module('ZWave.logReader', [
             },
             22: {
                 name: "SendDataAbort",
+                status: WARNING,
                 processor: null
             },
             32: {
@@ -572,6 +573,12 @@ angular.module('ZWave.logReader', [
                 processor: processPacketTX
             },
             {
+                string: "Sending ABORT Message = ",
+                ref: "SendAbort",
+                content: "Sending data abort",
+                status: WARNING
+            },
+            {
                 string: "Response processed after ",
                 ref: "PktStat",
                 processor: processResponseTime
@@ -600,7 +607,13 @@ angular.module('ZWave.logReader', [
             },
             {
                 string: "Timeout while sending message. Requeueing",
-                ref: "Timeout"
+                ref: "Retry",
+                processor: processRetry
+            },
+            {
+                string: "Retry count exceeded",
+                ref: "Timeout",
+                processor: processTimeout
             },
             {
                 string: "NETWORK HEAL - ",
@@ -704,6 +717,23 @@ angular.module('ZWave.logReader', [
             return {
                 stage: stage,
                 content: "Stage advanced to " + stage
+            };
+        }
+
+        function processRetry(node, process, message) {
+            var count = parseInt(message.substr(message.indexOf("Requeueing - ") + 13));
+            return {
+                retry: count,
+                result: WARNING,
+                content: "Message retry (" + count + " attempts remaining)"
+            };
+        }
+
+        function processTimeout(node, process, message) {
+            addNodeInfo(node, "Stage", "DEAD");
+            return {
+                result: ERROR,
+                content: "Message timeout!"
             };
         }
 
@@ -841,6 +871,9 @@ angular.module('ZWave.logReader', [
                 sendData.callback = callback;
                 sendData.cmdClass = cmdClass;
                 sendData.content = "SendData: " + cmdClass.message;
+                
+                lastSendData.node = node;
+                lastSendData.callback = callback;
             }
             else {
                 // Handle response from network
@@ -859,7 +892,7 @@ angular.module('ZWave.logReader', [
                     }
                     else {
                         callbackData = callbackCache[callback];
-                        sendData.node = callbackCache[callback].node;
+                        sendData.node = callbackData.node;
                         sendData.responseTime = logTime - callbackData.time;
                     }
 
@@ -869,17 +902,17 @@ angular.module('ZWave.logReader', [
                             if (sendData.responseTime != "Unknown") {
                                 updateNodeResponse(node, sendData.responseTime);
                             }
-                            sendData.content = "Completed OK in " + sendData.responseTime + "ms";
+                            sendData.content = "Message (" + callback + ") completed OK in " + sendData.responseTime + "ms";
                             break;
                         case 1:		// COMPLETE_NO_ACK
                             updateNodeResponse(node, -1);
                             setStatus(sendData, WARNING);
-                            sendData.content = "Completed: No ACK in " + sendData.responseTime + "ms";
+                            sendData.content = "Message (" + callback + ") completed in " + sendData.responseTime + "ms. NO ACK!";
                             break;
                         case 2:		// COMPLETE_FAIL
                             updateNodeResponse(node, -1);
                             setStatus(sendData, ERROR);
-                            sendData.content = "Failed in " + sendData.responseTime + "ms";
+                            sendData.content = "Message (" + callback + ") failed in " + sendData.responseTime + "ms";
                             break;
                         case 3:		// COMPLETE_NOT_IDLE
                             updateNodeResponse(node, -1);
@@ -890,17 +923,17 @@ angular.module('ZWave.logReader', [
                 }
                 else {
                     // There's no node ID, so use the last node
-                    sendData.node = lastNode;
+                    sendData.node = lastSendData.node;
                     // This is just the response to say it was sent
                     if (HEX2DEC(bytes[0]) > 0) {
                         // Success
-                        sendData.content = "Message sent OK";
+                        sendData.content = "Message (" + lastSendData.callback + ") sent OK";
                         setStatus(sendData, SUCCESS);
                     }
                     else {
                         // Error
                         setStatus(sendData, ERROR);
-                        sendData.content = "Message not sent!";
+                        sendData.content = "Message (" + lastSendData.callback + ") not sent!";
                     }
                 }
             }
@@ -941,6 +974,11 @@ angular.module('ZWave.logReader', [
                     packet.length - 3);
                 packet.node = packet.packet.node;
                 setStatus(packet, packet.packet);			// Bubble status
+            }
+            
+            // Set the minimum status if we defined it in the packet definition
+            if(packetTypes[packet.pktType].status != null) {
+                setStatus(packet, packetTypes[packet.pktType].status);
             }
 
             packet.content = "Packet ";
@@ -1178,8 +1216,3 @@ angular.module('ZWave.logReader', [
 
     })
 ;
-
-
-
-
-
