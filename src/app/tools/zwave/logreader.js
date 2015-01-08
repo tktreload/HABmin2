@@ -712,7 +712,7 @@ angular.module('ZWave.logReader', [
         function processTimeout(node, process, message) {
             var count = message.substr(message.indexOf("Requeueing - ") + 13);
             return {
-                stage: stage,
+                retry: count,
                 result: ERROR,
                 content: "Message timeout (" + count + " attempts remaining)"
             };
