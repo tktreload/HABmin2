@@ -602,8 +602,7 @@ angular.module('ZWave.logReader', [
             {
                 string: "Timeout while sending message. Requeueing",
                 ref: "Timeout",
-                content: "Message timed out",
-                status: ERROR
+                processor: processTimeout
             },
             {
                 string: "NETWORK HEAL - ",
@@ -707,6 +706,15 @@ angular.module('ZWave.logReader', [
             return {
                 stage: stage,
                 content: "Stage advanced to " + stage
+            };
+        }
+
+        function processTimeout(node, process, message) {
+            var count = message.substr(message.indexOf("Requeueing - ") + 13);
+            return {
+                stage: stage,
+                result: ERROR,
+                content: "Message timeout (" + count + " attempts remaining)"
             };
         }
 
