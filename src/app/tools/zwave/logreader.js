@@ -721,7 +721,7 @@ angular.module('ZWave.logReader', [
         }
 
         function processRetry(node, process, message) {
-            var count = message.substr(message.indexOf("Requeueing - ") + 13);
+            var count = parseInt(message.substr(message.indexOf("Requeueing - ") + 13));
             return {
                 retry: count,
                 result: WARNING,
