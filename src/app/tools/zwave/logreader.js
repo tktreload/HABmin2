@@ -26,7 +26,7 @@ angular.module('ZWave.logReader', [
                     templateUrl: 'tools/zwave/logreader.tpl.html'
                 }
             },
-            data: {pageTitle: 'Charting'},
+            data: {pageTitle: 'ZWave Log Reader'},
             resolve: {
                 // Make sure the localisation files are resolved before the controller runs
                 localisations: function (locale) {
