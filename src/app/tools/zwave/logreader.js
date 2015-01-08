@@ -147,7 +147,7 @@ angular.module('ZWave.logReader', [
             },
             22: {
                 name: "SendDataAbort",
-                processor: null
+                processor: processSendDataAbort
             },
             32: {
                 name: "MemoryGetId",
@@ -573,6 +573,12 @@ angular.module('ZWave.logReader', [
                 processor: processPacketTX
             },
             {
+                string: "Sending ABORT Message = ",
+                ref: "SendAbort",
+                content: "Sending data abort",
+                status: WARNING
+            },
+            {
                 string: "Response processed after ",
                 ref: "PktStat",
                 processor: processResponseTime
@@ -601,6 +607,11 @@ angular.module('ZWave.logReader', [
             },
             {
                 string: "Timeout while sending message. Requeueing",
+                ref: "Retry",
+                processor: processRetry
+            },
+            {
+                string: "Retry count exceeded",
                 ref: "Timeout",
                 processor: processTimeout
             },
@@ -709,12 +720,21 @@ angular.module('ZWave.logReader', [
             };
         }
 
-        function processTimeout(node, process, message) {
+        function processRetry(node, process, message) {
             var count = message.substr(message.indexOf("Requeueing - ") + 13);
             return {
                 retry: count,
+                result: WARNING,
+                content: "Message retry (" + count + " attempts remaining)"
+            };
+        }
+
+        function processTimeout(node, process, message) {
+            addNodeInfo(node, "Stage", "DEAD"
+            return {
+                retry: count,
                 result: ERROR,
-                content: "Message timeout (" + count + " attempts remaining)"
+                content: "Message timeout!"
             };
         }
 
