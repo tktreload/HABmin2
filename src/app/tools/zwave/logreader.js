@@ -730,7 +730,7 @@ angular.module('ZWave.logReader', [
         }
 
         function processTimeout(node, process, message) {
-            addNodeInfo(node, "Stage", "DEAD"
+            addNodeInfo(node, "Stage", "DEAD");
             return {
                 retry: count,
                 result: ERROR,
