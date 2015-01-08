@@ -10,7 +10,6 @@
 angular.module('ZWave.logReader', [
     'ui.router',
     'ui.bootstrap',
-    'ngLocalize',
     'angular-growl',
     'ngVis',
     'ResizePanel',
@@ -147,7 +146,8 @@ angular.module('ZWave.logReader', [
             },
             22: {
                 name: "SendDataAbort",
-                processor: processSendDataAbort
+                status: WARNING,
+                processor: null
             },
             32: {
                 name: "MemoryGetId",
@@ -975,6 +975,11 @@ angular.module('ZWave.logReader', [
                     packet.length - 3);
                 packet.node = packet.packet.node;
                 setStatus(packet, packet.packet);			// Bubble status
+            }
+            
+            // Set the minimum status if we defined it in the packet definition
+            if(packetTypes[packet.pktType].status != null) {
+                setStatus(packet, packetTypes[packet.pktType].status);
             }
 
             packet.content = "Packet ";
