@@ -6,6 +6,8 @@
     "mainCharts": "Charts",
     "mainRules": "Rules",
     "mainScheduler": "Scheduler",
+    "mainTools": "Tools",
+    "mainZWaveLogReader": "ZWave Log Viewer",
     "mainSitemaps": "Sitemaps",
     "mainAutomation": "Automation",
     "mainNoSitemaps": "No Sitemaps Available",
