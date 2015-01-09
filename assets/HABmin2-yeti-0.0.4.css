@@ -104,6 +104,7 @@
  * gridster.js - v0.2.1 - 2013-10-28 * http://gridster.net
  * Copyright (c) 2013 ducksboard; Licensed MIT
  */
+  /* RESIZE */
   /**
    * This is our main variables file. We must include it last so we can overwrite any variable
    * definitions in our imported stylesheets.
@@ -6361,7 +6362,7 @@ button.yeti .close {
   margin: auto;
   height: 0;
 }
-.yeti .gridster ul {
+.yeti .gridster-content > ul {
   margin: 0;
   list-style: none;
   padding: 0;
@@ -6420,6 +6421,75 @@ button.yeti .close {
 }
 .yeti .gridster-item-moving {
   z-index: 3;
+}
+.yeti .gridster-item-resizable-handler {
+  position: absolute;
+  font-size: 1px;
+  display: block;
+}
+.yeti .handle-se {
+  cursor: se-resize;
+  width: 12px;
+  height: 12px;
+  right: 1px;
+  bottom: 1px;
+}
+.yeti .handle-ne {
+  cursor: ne-resize;
+  width: 12px;
+  height: 12px;
+  right: 1px;
+  top: 1px;
+}
+.yeti .handle-nw {
+  cursor: nw-resize;
+  width: 12px;
+  height: 12px;
+  left: 1px;
+  top: 1px;
+}
+.yeti .handle-sw {
+  cursor: sw-resize;
+  width: 12px;
+  height: 12px;
+  left: 1px;
+  bottom: 1px;
+}
+.yeti .handle-e {
+  cursor: e-resize;
+  width: 12px;
+  bottom: 0;
+  right: 1px;
+  top: 0;
+}
+.yeti .handle-s {
+  cursor: s-resize;
+  height: 12px;
+  right: 0;
+  bottom: 1px;
+  left: 0;
+}
+.yeti .handle-n {
+  cursor: n-resize;
+  height: 12px;
+  right: 0;
+  top: 1px;
+  left: 0;
+}
+.yeti .handle-w {
+  cursor: w-resize;
+  width: 12px;
+  left: 1px;
+  top: 0;
+  bottom: 0;
+}
+.yeti .gridster .gridster-item:hover .gridster-box {
+  border: 1.5px solid #B3B2B3;
+}
+.yeti .gridster .gridster-item:hover .handle-se {
+  border-style: solid;
+  border-width: 0 0 13px 13px;
+  border-color: transparent transparent #ccc;
 }
 .yeti * {
   -webkit-touch-callout: none;
@@ -6900,4 +6970,8 @@ button.yeti .close {
   display: block;
   overflow: auto;
   width: 100%;
+}
+.yeti .zwave-logreader-popover {
+  max-width: 100%;
+  white-space: nowrap;
 }
