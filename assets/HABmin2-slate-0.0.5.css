@@ -6873,6 +6873,10 @@ button.slate .close {
 .slate .vis.timeline.root {
   border: none;
 }
+.slate .vis.timeline.root .box {
+  width: auto;
+  height: auto;
+}
 .slate .vis.timeline .legend {
   background-color: #3e444c;
   opacity: 0.8;
