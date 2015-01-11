@@ -6967,10 +6967,6 @@ button.paper .close {
 .paper .vis.timeline.root {
   border: none;
 }
-.paper .vis.timeline.root .box {
-  width: auto;
-  height: auto;
-}
 .paper .vis.timeline .legend {
   background-color: #f5f5f5;
   opacity: 0.8;

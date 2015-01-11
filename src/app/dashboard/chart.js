@@ -20,7 +20,8 @@ angular.module('HABmin.chart', [
     'ngVis',
     'ngConfirmClick',
     'ResizePanel',
-    'SidepanelService'
+    'SidepanelService'//,
+//    'habminChart'
 ])
 
     .config(function config($stateProvider) {
@@ -519,23 +520,6 @@ angular.module('HABmin.chart', [
                     }
                 );
             });
-
-            /*
-            PersistenceDataModel.get($scope.selectedService, itemRef, start, stop).then(
-                function (response) {
-                    console.log("The item definition is: ", response);
-                    dataItems.add({x: now, y: count, group: 'Outside_RainGauge_Counter'});
-                    _addChartItem(itemRef, response);
-                },
-                function (reason) {
-                    // Handle failure
-                    growl.warning(locale.getString('habmin.chartErrorLoadingItem', itemRef));
-                }
-            );
-
-*/
-
-
         };
 
         $scope.graphEvents = {

@@ -28,75 +28,47 @@ angular.module('ngVis', [])
  * TimeLine directive
  */
     .directive('visTimeline', function () {
-        'use strict';
         return {
             restrict: 'EA',
             transclude: false,
             scope: {
                 data: '=',
-                options: '=',
-                events: '='
+                options: '='
             },
             link: function (scope, element, attr) {
-                var graphEvents = [
-                    'rangechange',
-                    'rangechanged',
-                    'timechange',
-                    'timechanged'
-                ];
-
-                // Declare the timeline
-                var timeline = null;
+                var timeline = new vis.Timeline(element[0]);
 
                 scope.$watch('data', function () {
-                    // Sanity check
-                    if (scope.data == null) {
-                        return;
+                    timeline.clear({options: true});
+
+                    if (scope.data.single) {
+                        timeline.clear({groups: true});
+                        timeline.setItems(scope.data.load);
+                    } else {
+                        timeline.setGroups(scope.data.load.groups);
+                        timeline.setItems(scope.data.load.items);
                     }
 
-                    // If we've actually changed the data set, then recreate the graph
-                    // We can always update the data by adding more data to the existing data set
-                    if (timeline != null) {
-                        timeline.destroy();
-                    }
-
-                    // Create the timeline object
-                    timeline = new vis.Timeline(element[0]);
-
-                    // Attach an event handler if defined
-                    angular.forEach(scope.events, function (callback, event) {
-                        if (graphEvents.indexOf(String(event)) >= 0) {
-                            timeline.on(event, callback);
-                        }
-                    });
-
-                    // Set the options first
-                    timeline.setOptions(scope.options);
-
-                    // Add groups and items
-                    if (scope.data.groups != null) {
-                        timeline.setGroups(scope.data.groups.getDataSet());
-                    }
-                    if (scope.data.items != null) {
-                        timeline.setItems(scope.data.items.getDataSet());
-                    }
-
-                    // onLoad callback
-                    if (scope.events != null && scope.events.onload != null && angular.isFunction(scope.events.onload)) {
-                        scope.events.onload(timeline);
-                    }
+                    timeline.fit();
                 });
 
                 scope.$watchCollection('options', function (options) {
-                    if(timeline == null) {
-                        return;
-                    }
+                    timeline.clear({options: true});
                     timeline.setOptions(options);
+                });
+
+                scope.$watch('events', function (events) {
+                    angular.forEach(events, function (callback, event) {
+                        if (['rangechange', 'rangechanged', 'select', 'timechange',
+                                'timechanged'].indexOf(String(event)) >=
+                            0) {
+                            timeline.on(event, callback);
+                        }
+                    });
                 });
             }
         };
     })
-
 
 /**
  * Directive for network chart.
@@ -109,7 +81,7 @@ angular.module('ngVis', [])
                 data: '=',
                 options: '='
             },
-            link: function (scope, element, attr) {
+            link: function (scope, element, attr, visCtrl) {
                 var networkEvents = [
                     'rangechange',
                     'rangechanged',
@@ -121,7 +93,7 @@ angular.module('ngVis', [])
 
                 scope.$watch('data', function () {
                     // Sanity check
-                    if (scope.data == null) {
+                    if (scope.data === undefined) {
                         return;
                     }
 
@@ -129,7 +101,7 @@ angular.module('ngVis', [])
                     // We can always update the data by adding more data to the existing data set
 //                    if (network !== undefined) {
 //                        network.destroy();
-                    //                   }
+ //                   }
 
                     // Create the graph2d object
                     network = new vis.Network(element[0]);
@@ -147,15 +119,12 @@ angular.module('ngVis', [])
 
 
                     // onLoad callback
-//                    if (scope.events != null && scope.events.onload != null && angular.isFunction(scope.events.onload)) {
+//                    if (scope.events.onload !== undefined && angular.isFunction(scope.events.onload)) {
 //                        scope.events.onload(graph);
 //                    }
                 });
 
                 scope.$watchCollection('options', function (options) {
-                    if(network == null) {
-                        return;
-                    }
                     network.setOptions(options);
                 });
 
@@ -183,7 +152,7 @@ angular.module('ngVis', [])
                 options: '=',
                 events: '='
             },
-            link: function (scope, element, attr) {
+            link: function (scope, element, attr, visCtrl) {
                 var graphEvents = [
                     'rangechange',
                     'rangechanged',
@@ -196,13 +165,13 @@ angular.module('ngVis', [])
 
                 scope.$watch('data', function () {
                     // Sanity check
-                    if (scope.data == null) {
+                    if (scope.data === undefined) {
                         return;
                     }
 
                     // If we've actually changed the data set, then recreate the graph
                     // We can always update the data by adding more data to the existing data set
-                    if (graph != null) {
+                    if (graph !== undefined) {
                         graph.destroy();
                     }
 
@@ -220,25 +189,31 @@ angular.module('ngVis', [])
                     graph.setOptions(scope.options);
 
                     // Add groups and items
-                    if (scope.data.groups != null) {
+                    if (scope.data.groups !== undefined) {
                         graph.setGroups(scope.data.groups.getDataSet());
                     }
-                    if (scope.data.items != null) {
+                    if (scope.data.items !== undefined) {
                         graph.setItems(scope.data.items.getDataSet());
                     }
 
                     // onLoad callback
-                    if (scope.events != null && scope.events.onload != null && angular.isFunction(scope.events.onload)) {
+                    if (scope.events.onload !== undefined && angular.isFunction(scope.events.onload)) {
                         scope.events.onload(graph);
                     }
                 });
 
                 scope.$watchCollection('options', function (options) {
-                    if(graph == null) {
-                        return;
-                    }
                     graph.setOptions(options);
                 });
+
+                /*            scope.$watch('events', function (events) {
+                 angular.forEach(events, function (callback, event) {
+                 if (graphEvents.indexOf(String(event)) >=
+                 0) {
+                 graph.on(event, callback);
+                 }
+                 });
+                 });*/
             }
         };
     })
