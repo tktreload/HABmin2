@@ -6741,6 +6741,9 @@ button.paper .close {
 .paper .habmin-list .list-group .list-group-item {
   border-bottom: 1px;
 }
+.paper .habmin-property-table tr td:first-child {
+  white-space: nowrap;
+}
 .paper .panel-footer-small {
   padding: 5px 15px;
 }

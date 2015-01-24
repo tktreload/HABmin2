@@ -6647,6 +6647,9 @@ button.slate .close {
 .slate .habmin-list .list-group .list-group-item {
   border-bottom: 1px;
 }
+.slate .habmin-property-table tr td:first-child {
+  white-space: nowrap;
+}
 .slate .panel-footer-small {
   padding: 5px 15px;
 }

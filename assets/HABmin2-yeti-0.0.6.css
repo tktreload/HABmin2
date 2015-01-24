@@ -6589,6 +6589,9 @@ button.yeti .close {
 .yeti .habmin-list .list-group .list-group-item {
   border-bottom: 1px;
 }
+.yeti .habmin-property-table tr td:first-child {
+  white-space: nowrap;
+}
 .yeti .panel-footer-small {
   padding: 5px 15px;
 }
