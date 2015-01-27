@@ -3454,7 +3454,7 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
 }
 .yeti .navbar-default .navbar-nav > li > a:hover,
 .yeti .navbar-default .navbar-nav > li > a:focus {
-  color: #cccccc;
+  color: #ffffff;
   background-color: #272727;
 }
 .yeti .navbar-default .navbar-nav > .active > a,
@@ -3495,7 +3495,7 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   }
   .yeti .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .yeti .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #cccccc;
+    color: #ffffff;
     background-color: #272727;
   }
   .yeti .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
@@ -3515,7 +3515,7 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   color: #ffffff;
 }
 .yeti .navbar-default .navbar-link:hover {
-  color: #cccccc;
+  color: #ffffff;
 }
 .yeti .navbar-inverse {
   background-color: #008cba;
@@ -5443,7 +5443,7 @@ button.yeti .close {
   padding-left: 1em !important;
 }
 .yeti .blocklyTreeRow:hover {
-  color: #cccccc;
+  color: #ffffff;
   background-color: #272727;
 }
 .yeti .blocklyTreeIcon {
