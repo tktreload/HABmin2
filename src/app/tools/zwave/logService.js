@@ -1405,14 +1405,14 @@ angular.module('ZWaveLogReader', [])
                 setStatus(data, ERROR);
             } else {
                 if (type == REQUEST) {
-                    data = processCommandClass( HEX2DEC(bytes[1]), 0, bytes.slice(3));
+                    data = processCommandClass( HEX2DEC(bytes[1]), 0, bytes.slice(3) );
 
                     if(data == null) {
-                        data = {
-                            result: WARNING
-                            node: HEX2DEC(bytes[1]),
-                            content: "Unprocessed command class: " + bytes[3]
-                        };
+//                        data = {
+//                            result: WARNING
+//                            node: HEX2DEC(bytes[1]),
+//                            content: "Unprocessed command class: " + bytes[3]
+//                        };
                     }
                     else {
                         createNode(data.node);
