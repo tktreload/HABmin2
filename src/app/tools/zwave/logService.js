@@ -99,6 +99,14 @@ angular.module('ZWaveLogReader', [])
                     }
                 }
 
+                if(node.neighbours != null) {
+                    if(node.neighbours == 0) {
+                        node.errors.push("Node has no neighbours");
+                    }
+                    else if(node.neighbours < 4) {
+                        node.warnings.push("Node only has " + node.neighbours + " neighbours");
+                    }
+                }
                 if (node.responseTimeAvg > 1000) {
                     node.errors.push("Average response time is very high (" + node.responseTimeAvg + ")");
                 }
@@ -1342,6 +1350,7 @@ angular.module('ZWaveLogReader', [])
                         }
                     }
 
+                    addNodeInfo(data.node, "neighbours", cnt);
                     data.content = "RoutingInfo: Found " + cnt + " neighbours";
                 }
             }
