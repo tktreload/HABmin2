@@ -238,7 +238,7 @@ angular.module('ZWaveLogReader', [])
             },
             128: {
                 name: "GetRoutingInfo",
-                processor: processControllerCmd
+                processor: processRoutingInfo
             }
         };
 
@@ -1308,6 +1308,42 @@ angular.module('ZWaveLogReader', [])
                     data.zwaveVersion += String.fromCharCode(HEX2DEC(bytes[i]));
                 }
                 addNodeInfo(data.node, "zwaveVersion", data.zwaveVersion);
+            }
+
+            return data;
+        }
+
+         function processRoutingInfo(node, direction, type, bytes, len) {
+            var data = {result: SUCCESS};
+            if (direction == "TX") {
+                data.node = HEX2DEC(bytes[0]);
+                createNode(data.node);
+
+                lastCmd = {
+                    node: data.node
+                };
+            } else {
+                if (type == REQUEST) {
+                    data.node = lastCmd.node;
+                }
+                else {
+                    data.node = lastCmd.node;
+                    
+                    var cnt = 0;
+                    for (var i = 3; i < 3 + 29; i++) {
+                        var incomingByte = HEX2DEC(bytes[i]);
+                        // loop bits in byte
+                        for (var j = 0; j < 8; j++) {
+                            var b1 = incomingByte & Math.pow(2, j);
+                            var b2 = Math.pow(2, j);
+                            if (b1 == b2) {
+                                cnt++;
+                            }
+                        }
+                    }
+
+                    data.content = "RoutingInfo: Found " + cnt + " neighbours";
+                }
             }
 
             return data;
