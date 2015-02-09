@@ -58,17 +58,20 @@ angular.module('ZWaveLogViewer', [
             }, 0);
 
             if (panel == "NODES") {
-                ZWaveLogReader.processDeviceInformation();
             }
         };
 
         $scope.selectedNode = {};
         $scope.showOption = "LIST";
-        $scope.processFilter = ['Start', 'RXPacket', 'TXPacket', 'Wakeup', 'Timeout', 'SendAbort'];
+        $scope.processFilter = ['Info', 'Cmd', 'Start', 'RXPacket', 'TXPacket', 'Wakeup', 'Timeout', 'SendAbort'];
         $scope.processFilterOptions = [
             {
                 ref: 'Info',
                 name: 'Binding Information'
+            },
+            {
+                ref: 'Cmd',
+                name: 'Commands'
             },
             {
                 ref: 'RXPacket',
@@ -107,7 +110,7 @@ angular.module('ZWaveLogViewer', [
          * @param node
          */
         $scope.selectNode = function (node) {
-            if (node.computed == false) {
+            if (node.computed === false) {
 
             }
             $scope.selectedNode = node;
@@ -124,7 +127,7 @@ angular.module('ZWaveLogViewer', [
                 return;
             }
             for (var key in $scope.nodes) {
-                $scope.nodeFilter.push(parseInt(key));
+                $scope.nodeFilter.push(parseInt(key, 10));
             }
             $scope.nodeFilter.push(255);
         };
@@ -164,7 +167,7 @@ angular.module('ZWaveLogViewer', [
 				$scope.nodes = ZWaveLogReader.getNodes();
                 $scope.countEntries = $scope.data.length;
 
-	            // Display all nodes to start
+                // Display all nodes to start
 				$scope.checkAllNodes();
 
 				$scope.logState = "loaded";
@@ -172,7 +175,7 @@ angular.module('ZWaveLogViewer', [
         }
 
         $scope.logName = ZWaveLogReader.getFileName();
-        if($scope.logName == "") {
+        if($scope.logName === "") {
             $scope.logState = "empty";
         }
         else {

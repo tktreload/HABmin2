@@ -8,7 +8,8 @@
  * project should be imported as the rest are just wasting space.
  */
 .yeti {
-  /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
+  /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+  /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
   @import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
   /*
   Don't allow users to select text.  It gets annoying when trying to
@@ -146,6 +147,7 @@
 .yeti header,
 .yeti hgroup,
 .yeti main,
+.yeti menu,
 .yeti nav,
 .yeti section,
 .yeti summary {
@@ -167,7 +169,7 @@
   display: none;
 }
 .yeti a {
-  background: transparent;
+  background-color: transparent;
 }
 .yeti a:active,
 .yeti a:hover {
@@ -309,11 +311,13 @@
   padding: 0;
 }
 @media print {
-  .yeti * {
-    text-shadow: none !important;
-    color: #000 !important;
+  .yeti *,
+  .yeti *:before,
+  .yeti *:after {
     background: transparent !important;
+    color: #000 !important;
     box-shadow: none !important;
+    text-shadow: none !important;
   }
   .yeti a,
   .yeti a:visited {
@@ -325,8 +329,8 @@
   .yeti abbr[title]:after {
     content: " (" attr(title) ")";
   }
-  .yeti a[href^="javascript:"]:after,
-  .yeti a[href^="#"]:after {
+  .yeti a[href^="#"]:after,
+  .yeti a[href^="javascript:"]:after {
     content: "";
   }
   .yeti pre,
@@ -360,10 +364,6 @@
   .yeti .navbar {
     display: none;
   }
-  .yeti .table td,
-  .yeti .table th {
-    background-color: #fff !important;
-  }
   .yeti .btn > .caret,
   .yeti .dropup > .btn > .caret {
     border-top-color: #000 !important;
@@ -373,6 +373,10 @@
   }
   .yeti .table {
     border-collapse: collapse !important;
+  }
+  .yeti .table td,
+  .yeti .table th {
+    background-color: #fff !important;
   }
   .yeti .table-bordered th,
   .yeti .table-bordered td {
@@ -391,7 +395,7 @@
   box-sizing: border-box;
 }
 .yeti html {
-  font-size: 62.5%;
+  font-size: 10px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .yeti body {
@@ -444,6 +448,7 @@
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
   max-width: 100%;
@@ -467,6 +472,15 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+.yeti .sr-only-focusable:active,
+.yeti .sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
 }
 .yeti h1,
 .yeti h2,
@@ -589,7 +603,7 @@
 .yeti .lead {
   margin-bottom: 21px;
   font-size: 17px;
-  font-weight: 200;
+  font-weight: 300;
   line-height: 1.4;
 }
 @media (min-width: 768px) {
@@ -599,10 +613,12 @@
 }
 .yeti small,
 .yeti .small {
-  font-size: 85%;
+  font-size: 80%;
 }
-.yeti cite {
-  font-style: normal;
+.yeti mark,
+.yeti .mark {
+  background-color: #fcf8e3;
+  padding: .2em;
 }
 .yeti .text-left {
   text-align: left;
@@ -615,6 +631,18 @@
 }
 .yeti .text-justify {
   text-align: justify;
+}
+.yeti .text-nowrap {
+  white-space: nowrap;
+}
+.yeti .text-lowercase {
+  text-transform: lowercase;
+}
+.yeti .text-uppercase {
+  text-transform: uppercase;
+}
+.yeti .text-capitalize {
+  text-transform: capitalize;
 }
 .yeti .text-muted {
   color: #999999;
@@ -795,10 +823,6 @@ a.yeti .bg-danger:hover {
 .yeti blockquote.pull-right .small:after {
   content: '\00A0 \2014';
 }
-.yeti blockquote:before,
-.yeti blockquote:after {
-  content: "";
-}
 .yeti address {
   margin-bottom: 21px;
   font-style: normal;
@@ -815,7 +839,6 @@ a.yeti .bg-danger:hover {
   font-size: 90%;
   color: #c7254e;
   background-color: #f9f2f4;
-  white-space: nowrap;
   border-radius: 4px;
 }
 .yeti kbd {
@@ -825,6 +848,12 @@ a.yeti .bg-danger:hover {
   background-color: #333333;
   border-radius: 0;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.yeti kbd kbd {
+  padding: 0;
+  font-size: 100%;
+  font-weight: bold;
+  box-shadow: none;
 }
 .yeti pre {
   display: block;
@@ -964,7 +993,7 @@ a.yeti .bg-danger:hover {
   right: 8.33333333%;
 }
 .yeti .col-xs-pull-0 {
-  right: 0%;
+  right: auto;
 }
 .yeti .col-xs-push-12 {
   left: 100%;
@@ -1003,7 +1032,7 @@ a.yeti .bg-danger:hover {
   left: 8.33333333%;
 }
 .yeti .col-xs-push-0 {
-  left: 0%;
+  left: auto;
 }
 .yeti .col-xs-offset-12 {
   margin-left: 100%;
@@ -1121,7 +1150,7 @@ a.yeti .bg-danger:hover {
     right: 8.33333333%;
   }
   .yeti .col-sm-pull-0 {
-    right: 0%;
+    right: auto;
   }
   .yeti .col-sm-push-12 {
     left: 100%;
@@ -1160,7 +1189,7 @@ a.yeti .bg-danger:hover {
     left: 8.33333333%;
   }
   .yeti .col-sm-push-0 {
-    left: 0%;
+    left: auto;
   }
   .yeti .col-sm-offset-12 {
     margin-left: 100%;
@@ -1279,7 +1308,7 @@ a.yeti .bg-danger:hover {
     right: 8.33333333%;
   }
   .yeti .col-md-pull-0 {
-    right: 0%;
+    right: auto;
   }
   .yeti .col-md-push-12 {
     left: 100%;
@@ -1318,7 +1347,7 @@ a.yeti .bg-danger:hover {
     left: 8.33333333%;
   }
   .yeti .col-md-push-0 {
-    left: 0%;
+    left: auto;
   }
   .yeti .col-md-offset-12 {
     margin-left: 100%;
@@ -1437,7 +1466,7 @@ a.yeti .bg-danger:hover {
     right: 8.33333333%;
   }
   .yeti .col-lg-pull-0 {
-    right: 0%;
+    right: auto;
   }
   .yeti .col-lg-push-12 {
     left: 100%;
@@ -1476,7 +1505,7 @@ a.yeti .bg-danger:hover {
     left: 8.33333333%;
   }
   .yeti .col-lg-push-0 {
-    left: 0%;
+    left: auto;
   }
   .yeti .col-lg-offset-12 {
     margin-left: 100%;
@@ -1519,14 +1548,20 @@ a.yeti .bg-danger:hover {
   }
 }
 .yeti table {
-  max-width: 100%;
   background-color: transparent;
+}
+.yeti caption {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: #999999;
+  text-align: left;
 }
 .yeti th {
   text-align: left;
 }
 .yeti .table {
   width: 100%;
+  max-width: 100%;
   margin-bottom: 21px;
 }
 .yeti .table > thead > tr > th,
@@ -1581,12 +1616,10 @@ a.yeti .bg-danger:hover {
 .yeti .table-bordered > thead > tr > td {
   border-bottom-width: 2px;
 }
-.yeti .table-striped > tbody > tr:nth-child(odd) > td,
-.yeti .table-striped > tbody > tr:nth-child(odd) > th {
+.yeti .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #f9f9f9;
 }
-.yeti .table-hover > tbody > tr:hover > td,
-.yeti .table-hover > tbody > tr:hover > th {
+.yeti .table-hover > tbody > tr:hover {
   background-color: #f5f5f5;
 }
 .yeti table col[class*="col-"] {
@@ -1617,6 +1650,7 @@ a.yeti .bg-danger:hover {
 .yeti .table-hover > tbody > tr > td.active:hover,
 .yeti .table-hover > tbody > tr > th.active:hover,
 .yeti .table-hover > tbody > tr.active:hover > td,
+.yeti .table-hover > tbody > tr:hover > .active,
 .yeti .table-hover > tbody > tr.active:hover > th {
   background-color: #e8e8e8;
 }
@@ -1637,6 +1671,7 @@ a.yeti .bg-danger:hover {
 .yeti .table-hover > tbody > tr > td.success:hover,
 .yeti .table-hover > tbody > tr > th.success:hover,
 .yeti .table-hover > tbody > tr.success:hover > td,
+.yeti .table-hover > tbody > tr:hover > .success,
 .yeti .table-hover > tbody > tr.success:hover > th {
   background-color: #d0e9c6;
 }
@@ -1657,6 +1692,7 @@ a.yeti .bg-danger:hover {
 .yeti .table-hover > tbody > tr > td.info:hover,
 .yeti .table-hover > tbody > tr > th.info:hover,
 .yeti .table-hover > tbody > tr.info:hover > td,
+.yeti .table-hover > tbody > tr:hover > .info,
 .yeti .table-hover > tbody > tr.info:hover > th {
   background-color: #c4e3f3;
 }
@@ -1677,6 +1713,7 @@ a.yeti .bg-danger:hover {
 .yeti .table-hover > tbody > tr > td.warning:hover,
 .yeti .table-hover > tbody > tr > th.warning:hover,
 .yeti .table-hover > tbody > tr.warning:hover > td,
+.yeti .table-hover > tbody > tr:hover > .warning,
 .yeti .table-hover > tbody > tr.warning:hover > th {
   background-color: #faf2cc;
 }
@@ -1697,18 +1734,21 @@ a.yeti .bg-danger:hover {
 .yeti .table-hover > tbody > tr > td.danger:hover,
 .yeti .table-hover > tbody > tr > th.danger:hover,
 .yeti .table-hover > tbody > tr.danger:hover > td,
+.yeti .table-hover > tbody > tr:hover > .danger,
 .yeti .table-hover > tbody > tr.danger:hover > th {
   background-color: #ebcccc;
 }
-@media (max-width: 767px) {
+.yeti .table-responsive {
+  overflow-x: auto;
+  min-height: 0.01%;
+}
+@media screen and (max-width: 767px) {
   .yeti .table-responsive {
     width: 100%;
     margin-bottom: 15.75px;
     overflow-y: hidden;
-    overflow-x: scroll;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     border: 1px solid #dddddd;
-    -webkit-overflow-scrolling: touch;
   }
   .yeti .table-responsive > .table {
     margin-bottom: 0;
@@ -1766,6 +1806,7 @@ a.yeti .bg-danger:hover {
 }
 .yeti label {
   display: inline-block;
+  max-width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -1778,7 +1819,6 @@ a.yeti .bg-danger:hover {
 .yeti input[type="checkbox"] {
   margin: 4px 0 0;
   margin-top: 1px \9;
-  /* IE8-9 */
   line-height: normal;
 }
 .yeti input[type="file"] {
@@ -1821,6 +1861,7 @@ a.yeti .bg-danger:hover {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .yeti .form-control:focus {
@@ -1852,23 +1893,49 @@ textarea.yeti .form-control {
 .yeti input[type="search"] {
   -webkit-appearance: none;
 }
-.yeti input[type="date"] {
-  line-height: 39px;
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .yeti input[type="date"],
+  .yeti input[type="time"],
+  .yeti input[type="datetime-local"],
+  .yeti input[type="month"] {
+    line-height: 39px;
+  }
+  .yeti input[type="date"].input-sm,
+  .yeti input[type="time"].input-sm,
+  .yeti input[type="datetime-local"].input-sm,
+  .yeti input[type="month"].input-sm,
+  .input-group-sm .yeti input[type="date"],
+  .input-group-sm .yeti input[type="time"],
+  .input-group-sm .yeti input[type="datetime-local"],
+  .input-group-sm .yeti input[type="month"] {
+    line-height: 36px;
+  }
+  .yeti input[type="date"].input-lg,
+  .yeti input[type="time"].input-lg,
+  .yeti input[type="datetime-local"].input-lg,
+  .yeti input[type="month"].input-lg,
+  .input-group-lg .yeti input[type="date"],
+  .input-group-lg .yeti input[type="time"],
+  .input-group-lg .yeti input[type="datetime-local"],
+  .input-group-lg .yeti input[type="month"] {
+    line-height: 60px;
+  }
 }
 .yeti .form-group {
   margin-bottom: 15px;
 }
 .yeti .radio,
 .yeti .checkbox {
+  position: relative;
   display: block;
-  min-height: 21px;
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-left: 20px;
 }
 .yeti .radio label,
 .yeti .checkbox label {
-  display: inline;
+  min-height: 21px;
+  padding-left: 20px;
+  margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
 }
@@ -1876,8 +1943,9 @@ textarea.yeti .form-control {
 .yeti .radio-inline input[type="radio"],
 .yeti .checkbox input[type="checkbox"],
 .yeti .checkbox-inline input[type="checkbox"] {
-  float: left;
+  position: absolute;
   margin-left: -20px;
+  margin-top: 4px \9;
 }
 .yeti .radio + .radio,
 .yeti .checkbox + .checkbox {
@@ -1899,17 +1967,33 @@ textarea.yeti .form-control {
 }
 .yeti input[type="radio"][disabled],
 .yeti input[type="checkbox"][disabled],
-.yeti .radio[disabled],
-.yeti .radio-inline[disabled],
-.yeti .checkbox[disabled],
-.yeti .checkbox-inline[disabled],
+.yeti input[type="radio"].disabled,
+.yeti input[type="checkbox"].disabled,
 fieldset[disabled] .yeti input[type="radio"],
-fieldset[disabled] .yeti input[type="checkbox"],
-fieldset[disabled] .yeti .radio,
+fieldset[disabled] .yeti input[type="checkbox"] {
+  cursor: not-allowed;
+}
+.yeti .radio-inline.disabled,
+.yeti .checkbox-inline.disabled,
 fieldset[disabled] .yeti .radio-inline,
-fieldset[disabled] .yeti .checkbox,
 fieldset[disabled] .yeti .checkbox-inline {
   cursor: not-allowed;
+}
+.yeti .radio.disabled label,
+.yeti .checkbox.disabled label,
+fieldset[disabled] .yeti .radio label,
+fieldset[disabled] .yeti .checkbox label {
+  cursor: not-allowed;
+}
+.yeti .form-control-static {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  margin-bottom: 0;
+}
+.yeti .form-control-static.input-lg,
+.yeti .form-control-static.input-sm {
+  padding-left: 0;
+  padding-right: 0;
 }
 .yeti .input-sm {
   height: 36px;
@@ -1926,6 +2010,27 @@ textarea.yeti .input-sm,
 select[multiple].yeti .input-sm {
   height: auto;
 }
+.yeti .form-group-sm .form-control {
+  height: 36px;
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 0;
+}
+select.yeti .form-group-sm .form-control {
+  height: 36px;
+  line-height: 36px;
+}
+textarea.yeti .form-group-sm .form-control,
+select[multiple].yeti .form-group-sm .form-control {
+  height: auto;
+}
+.yeti .form-group-sm .form-control-static {
+  height: 36px;
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
 .yeti .input-lg {
   height: 60px;
   padding: 16px 20px;
@@ -1941,28 +2046,65 @@ textarea.yeti .input-lg,
 select[multiple].yeti .input-lg {
   height: auto;
 }
+.yeti .form-group-lg .form-control {
+  height: 60px;
+  padding: 16px 20px;
+  font-size: 19px;
+  line-height: 1.33;
+  border-radius: 0;
+}
+select.yeti .form-group-lg .form-control {
+  height: 60px;
+  line-height: 60px;
+}
+textarea.yeti .form-group-lg .form-control,
+select[multiple].yeti .form-group-lg .form-control {
+  height: auto;
+}
+.yeti .form-group-lg .form-control-static {
+  height: 60px;
+  padding: 16px 20px;
+  font-size: 19px;
+  line-height: 1.33;
+}
 .yeti .has-feedback {
   position: relative;
 }
 .yeti .has-feedback .form-control {
   padding-right: 48.75px;
 }
-.yeti .has-feedback .form-control-feedback {
+.yeti .form-control-feedback {
   position: absolute;
-  top: 26px;
+  top: 0;
   right: 0;
+  z-index: 2;
   display: block;
   width: 39px;
   height: 39px;
   line-height: 39px;
   text-align: center;
+  pointer-events: none;
+}
+.yeti .input-lg + .form-control-feedback {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+}
+.yeti .input-sm + .form-control-feedback {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
 }
 .yeti .has-success .help-block,
 .yeti .has-success .control-label,
 .yeti .has-success .radio,
 .yeti .has-success .checkbox,
 .yeti .has-success .radio-inline,
-.yeti .has-success .checkbox-inline {
+.yeti .has-success .checkbox-inline,
+.yeti .has-success.radio label,
+.yeti .has-success.checkbox label,
+.yeti .has-success.radio-inline label,
+.yeti .has-success.checkbox-inline label {
   color: #43ac6a;
 }
 .yeti .has-success .form-control {
@@ -1988,7 +2130,11 @@ select[multiple].yeti .input-lg {
 .yeti .has-warning .radio,
 .yeti .has-warning .checkbox,
 .yeti .has-warning .radio-inline,
-.yeti .has-warning .checkbox-inline {
+.yeti .has-warning .checkbox-inline,
+.yeti .has-warning.radio label,
+.yeti .has-warning.checkbox label,
+.yeti .has-warning.radio-inline label,
+.yeti .has-warning.checkbox-inline label {
   color: #e99002;
 }
 .yeti .has-warning .form-control {
@@ -2014,7 +2160,11 @@ select[multiple].yeti .input-lg {
 .yeti .has-error .radio,
 .yeti .has-error .checkbox,
 .yeti .has-error .radio-inline,
-.yeti .has-error .checkbox-inline {
+.yeti .has-error .checkbox-inline,
+.yeti .has-error.radio label,
+.yeti .has-error.checkbox label,
+.yeti .has-error.radio-inline label,
+.yeti .has-error.checkbox-inline label {
   color: #f04124;
 }
 .yeti .has-error .form-control {
@@ -2035,8 +2185,11 @@ select[multiple].yeti .input-lg {
 .yeti .has-error .form-control-feedback {
   color: #f04124;
 }
-.yeti .form-control-static {
-  margin-bottom: 0;
+.yeti .has-feedback label ~ .form-control-feedback {
+  top: 26px;
+}
+.yeti .has-feedback label.sr-only ~ .form-control-feedback {
+  top: 0;
 }
 .yeti .help-block {
   display: block;
@@ -2055,6 +2208,18 @@ select[multiple].yeti .input-lg {
     width: auto;
     vertical-align: middle;
   }
+  .yeti .form-inline .form-control-static {
+    display: inline-block;
+  }
+  .yeti .form-inline .input-group {
+    display: inline-table;
+    vertical-align: middle;
+  }
+  .yeti .form-inline .input-group .input-group-addon,
+  .yeti .form-inline .input-group .input-group-btn,
+  .yeti .form-inline .input-group .form-control {
+    width: auto;
+  }
   .yeti .form-inline .input-group > .form-control {
     width: 100%;
   }
@@ -2067,19 +2232,21 @@ select[multiple].yeti .input-lg {
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 0;
     vertical-align: middle;
+  }
+  .yeti .form-inline .radio label,
+  .yeti .form-inline .checkbox label {
+    padding-left: 0;
   }
   .yeti .form-inline .radio input[type="radio"],
   .yeti .form-inline .checkbox input[type="checkbox"] {
-    float: none;
+    position: relative;
     margin-left: 0;
   }
   .yeti .form-inline .has-feedback .form-control-feedback {
     top: 0;
   }
 }
-.yeti .form-horizontal .control-label,
 .yeti .form-horizontal .radio,
 .yeti .form-horizontal .checkbox,
 .yeti .form-horizontal .radio-inline,
@@ -2096,17 +2263,25 @@ select[multiple].yeti .input-lg {
   margin-left: -15px;
   margin-right: -15px;
 }
-.yeti .form-horizontal .form-control-static {
-  padding-top: 9px;
-}
 @media (min-width: 768px) {
   .yeti .form-horizontal .control-label {
     text-align: right;
+    margin-bottom: 0;
+    padding-top: 9px;
   }
 }
 .yeti .form-horizontal .has-feedback .form-control-feedback {
-  top: 0;
   right: 15px;
+}
+@media (min-width: 768px) {
+  .yeti .form-horizontal .form-group-lg .control-label {
+    padding-top: 22.28px;
+  }
+}
+@media (min-width: 768px) {
+  .yeti .form-horizontal .form-group-sm .control-label {
+    padding-top: 9px;
+  }
 }
 .yeti .btn {
   display: inline-block;
@@ -2114,6 +2289,7 @@ select[multiple].yeti .input-lg {
   font-weight: normal;
   text-align: center;
   vertical-align: middle;
+  touch-action: manipulation;
   cursor: pointer;
   background-image: none;
   border: 1px solid transparent;
@@ -2129,13 +2305,17 @@ select[multiple].yeti .input-lg {
 }
 .yeti .btn:focus,
 .yeti .btn:active:focus,
-.yeti .btn.active:focus {
+.yeti .btn.active:focus,
+.yeti .btn.focus,
+.yeti .btn:active.focus,
+.yeti .btn.active.focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 .yeti .btn:hover,
-.yeti .btn:focus {
+.yeti .btn:focus,
+.yeti .btn.focus {
   color: #333333;
   text-decoration: none;
 }
@@ -2163,16 +2343,17 @@ fieldset[disabled] .yeti .btn {
 }
 .yeti .btn-default:hover,
 .yeti .btn-default:focus,
+.yeti .btn-default.focus,
 .yeti .btn-default:active,
 .yeti .btn-default.active,
-.open .dropdown-toggle.yeti .btn-default {
+.open > .dropdown-toggle.yeti .btn-default {
   color: #333333;
-  background-color: #d3d3d3;
+  background-color: #cecece;
   border-color: #adadad;
 }
 .yeti .btn-default:active,
 .yeti .btn-default.active,
-.open .dropdown-toggle.yeti .btn-default {
+.open > .dropdown-toggle.yeti .btn-default {
   background-image: none;
 }
 .yeti .btn-default.disabled,
@@ -2184,6 +2365,9 @@ fieldset[disabled] .yeti .btn-default:hover,
 .yeti .btn-default.disabled:focus,
 .yeti .btn-default[disabled]:focus,
 fieldset[disabled] .yeti .btn-default:focus,
+.yeti .btn-default.disabled.focus,
+.yeti .btn-default[disabled].focus,
+fieldset[disabled] .yeti .btn-default.focus,
 .yeti .btn-default.disabled:active,
 .yeti .btn-default[disabled]:active,
 fieldset[disabled] .yeti .btn-default:active,
@@ -2204,16 +2388,17 @@ fieldset[disabled] .yeti .btn-default.active {
 }
 .yeti .btn-primary:hover,
 .yeti .btn-primary:focus,
+.yeti .btn-primary.focus,
 .yeti .btn-primary:active,
 .yeti .btn-primary.active,
-.open .dropdown-toggle.yeti .btn-primary {
+.open > .dropdown-toggle.yeti .btn-primary {
   color: #ffffff;
-  background-color: #006d91;
+  background-color: #006687;
   border-color: #004b63;
 }
 .yeti .btn-primary:active,
 .yeti .btn-primary.active,
-.open .dropdown-toggle.yeti .btn-primary {
+.open > .dropdown-toggle.yeti .btn-primary {
   background-image: none;
 }
 .yeti .btn-primary.disabled,
@@ -2225,6 +2410,9 @@ fieldset[disabled] .yeti .btn-primary:hover,
 .yeti .btn-primary.disabled:focus,
 .yeti .btn-primary[disabled]:focus,
 fieldset[disabled] .yeti .btn-primary:focus,
+.yeti .btn-primary.disabled.focus,
+.yeti .btn-primary[disabled].focus,
+fieldset[disabled] .yeti .btn-primary.focus,
 .yeti .btn-primary.disabled:active,
 .yeti .btn-primary[disabled]:active,
 fieldset[disabled] .yeti .btn-primary:active,
@@ -2245,16 +2433,17 @@ fieldset[disabled] .yeti .btn-primary.active {
 }
 .yeti .btn-success:hover,
 .yeti .btn-success:focus,
+.yeti .btn-success.focus,
 .yeti .btn-success:active,
 .yeti .btn-success.active,
-.open .dropdown-toggle.yeti .btn-success {
+.open > .dropdown-toggle.yeti .btn-success {
   color: #ffffff;
-  background-color: #388f58;
+  background-color: #358753;
   border-color: #2b6e44;
 }
 .yeti .btn-success:active,
 .yeti .btn-success.active,
-.open .dropdown-toggle.yeti .btn-success {
+.open > .dropdown-toggle.yeti .btn-success {
   background-image: none;
 }
 .yeti .btn-success.disabled,
@@ -2266,6 +2455,9 @@ fieldset[disabled] .yeti .btn-success:hover,
 .yeti .btn-success.disabled:focus,
 .yeti .btn-success[disabled]:focus,
 fieldset[disabled] .yeti .btn-success:focus,
+.yeti .btn-success.disabled.focus,
+.yeti .btn-success[disabled].focus,
+fieldset[disabled] .yeti .btn-success.focus,
 .yeti .btn-success.disabled:active,
 .yeti .btn-success[disabled]:active,
 fieldset[disabled] .yeti .btn-success:active,
@@ -2286,16 +2478,17 @@ fieldset[disabled] .yeti .btn-success.active {
 }
 .yeti .btn-info:hover,
 .yeti .btn-info:focus,
+.yeti .btn-info.focus,
 .yeti .btn-info:active,
 .yeti .btn-info.active,
-.open .dropdown-toggle.yeti .btn-info {
+.open > .dropdown-toggle.yeti .btn-info {
   color: #ffffff;
-  background-color: #39b3d7;
+  background-color: #31b0d5;
   border-color: #269abc;
 }
 .yeti .btn-info:active,
 .yeti .btn-info.active,
-.open .dropdown-toggle.yeti .btn-info {
+.open > .dropdown-toggle.yeti .btn-info {
   background-image: none;
 }
 .yeti .btn-info.disabled,
@@ -2307,6 +2500,9 @@ fieldset[disabled] .yeti .btn-info:hover,
 .yeti .btn-info.disabled:focus,
 .yeti .btn-info[disabled]:focus,
 fieldset[disabled] .yeti .btn-info:focus,
+.yeti .btn-info.disabled.focus,
+.yeti .btn-info[disabled].focus,
+fieldset[disabled] .yeti .btn-info.focus,
 .yeti .btn-info.disabled:active,
 .yeti .btn-info[disabled]:active,
 fieldset[disabled] .yeti .btn-info:active,
@@ -2327,16 +2523,17 @@ fieldset[disabled] .yeti .btn-info.active {
 }
 .yeti .btn-warning:hover,
 .yeti .btn-warning:focus,
+.yeti .btn-warning.focus,
 .yeti .btn-warning:active,
 .yeti .btn-warning.active,
-.open .dropdown-toggle.yeti .btn-warning {
+.open > .dropdown-toggle.yeti .btn-warning {
   color: #ffffff;
-  background-color: #c17702;
+  background-color: #b67102;
   border-color: #935b01;
 }
 .yeti .btn-warning:active,
 .yeti .btn-warning.active,
-.open .dropdown-toggle.yeti .btn-warning {
+.open > .dropdown-toggle.yeti .btn-warning {
   background-image: none;
 }
 .yeti .btn-warning.disabled,
@@ -2348,6 +2545,9 @@ fieldset[disabled] .yeti .btn-warning:hover,
 .yeti .btn-warning.disabled:focus,
 .yeti .btn-warning[disabled]:focus,
 fieldset[disabled] .yeti .btn-warning:focus,
+.yeti .btn-warning.disabled.focus,
+.yeti .btn-warning[disabled].focus,
+fieldset[disabled] .yeti .btn-warning.focus,
 .yeti .btn-warning.disabled:active,
 .yeti .btn-warning[disabled]:active,
 fieldset[disabled] .yeti .btn-warning:active,
@@ -2368,16 +2568,17 @@ fieldset[disabled] .yeti .btn-warning.active {
 }
 .yeti .btn-danger:hover,
 .yeti .btn-danger:focus,
+.yeti .btn-danger.focus,
 .yeti .btn-danger:active,
 .yeti .btn-danger.active,
-.open .dropdown-toggle.yeti .btn-danger {
+.open > .dropdown-toggle.yeti .btn-danger {
   color: #ffffff;
-  background-color: #dc2c0f;
+  background-color: #d32a0e;
   border-color: #b1240c;
 }
 .yeti .btn-danger:active,
 .yeti .btn-danger.active,
-.open .dropdown-toggle.yeti .btn-danger {
+.open > .dropdown-toggle.yeti .btn-danger {
   background-image: none;
 }
 .yeti .btn-danger.disabled,
@@ -2389,6 +2590,9 @@ fieldset[disabled] .yeti .btn-danger:hover,
 .yeti .btn-danger.disabled:focus,
 .yeti .btn-danger[disabled]:focus,
 fieldset[disabled] .yeti .btn-danger:focus,
+.yeti .btn-danger.disabled.focus,
+.yeti .btn-danger[disabled].focus,
+fieldset[disabled] .yeti .btn-danger.focus,
 .yeti .btn-danger.disabled:active,
 .yeti .btn-danger[disabled]:active,
 fieldset[disabled] .yeti .btn-danger:active,
@@ -2405,11 +2609,11 @@ fieldset[disabled] .yeti .btn-danger.active {
 .yeti .btn-link {
   color: #008cba;
   font-weight: normal;
-  cursor: pointer;
   border-radius: 0;
 }
 .yeti .btn-link,
 .yeti .btn-link:active,
+.yeti .btn-link.active,
 .yeti .btn-link[disabled],
 fieldset[disabled] .yeti .btn-link {
   background-color: transparent;
@@ -2456,8 +2660,6 @@ fieldset[disabled] .yeti .btn-link:focus {
 .yeti .btn-block {
   display: block;
   width: 100%;
-  padding-left: 0;
-  padding-right: 0;
 }
 .yeti .btn-block + .btn-block {
   margin-top: 5px;
@@ -2470,6 +2672,7 @@ fieldset[disabled] .yeti .btn-link:focus {
 .yeti .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
 }
 .yeti .fade.in {
@@ -2477,16 +2680,28 @@ fieldset[disabled] .yeti .btn-link:focus {
 }
 .yeti .collapse {
   display: none;
+  visibility: hidden;
 }
 .yeti .collapse.in {
   display: block;
+  visibility: visible;
+}
+tr.yeti .collapse.in {
+  display: table-row;
+}
+tbody.yeti .collapse.in {
+  display: table-row-group;
 }
 .yeti .collapsing {
   position: relative;
   height: 0;
   overflow: hidden;
-  -webkit-transition: height 0.35s ease;
-  transition: height 0.35s ease;
+  -webkit-transition-property: height, visibility;
+  transition-property: height, visibility;
+  -webkit-transition-duration: 0.35s;
+  transition-duration: 0.35s;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
 }
 .yeti .caret {
   display: inline-block;
@@ -2498,6 +2713,7 @@ fieldset[disabled] .yeti .btn-link:focus {
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
+.yeti .dropup,
 .yeti .dropdown {
   position: relative;
 }
@@ -2516,6 +2732,7 @@ fieldset[disabled] .yeti .btn-link:focus {
   margin: 2px 0 0;
   list-style: none;
   font-size: 15px;
+  text-align: left;
   background-color: #ffffff;
   border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -2590,6 +2807,7 @@ fieldset[disabled] .yeti .btn-link:focus {
   font-size: 12px;
   line-height: 1.4;
   color: #999999;
+  white-space: nowrap;
 }
 .yeti .dropdown-backdrop {
   position: fixed;
@@ -2613,7 +2831,7 @@ fieldset[disabled] .yeti .btn-link:focus {
 .yeti .navbar-fixed-bottom .dropdown .dropdown-menu {
   top: auto;
   bottom: 100%;
-  margin-bottom: 1px;
+  margin-bottom: 2px;
 }
 @media (min-width: 768px) {
   .yeti .navbar-right .dropdown-menu {
@@ -2645,10 +2863,6 @@ fieldset[disabled] .yeti .btn-link:focus {
 .yeti .btn-group > .btn.active,
 .yeti .btn-group-vertical > .btn.active {
   z-index: 2;
-}
-.yeti .btn-group > .btn:focus,
-.yeti .btn-group-vertical > .btn:focus {
-  outline: none;
 }
 .yeti .btn-group .btn + .btn,
 .yeti .btn-group .btn + .btn-group,
@@ -2689,12 +2903,12 @@ fieldset[disabled] .yeti .btn-link:focus {
 .yeti .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
   border-radius: 0;
 }
-.yeti .btn-group > .btn-group:first-child > .btn:last-child,
-.yeti .btn-group > .btn-group:first-child > .dropdown-toggle {
+.yeti .btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.yeti .btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
-.yeti .btn-group > .btn-group:last-child > .btn:first-child {
+.yeti .btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -2786,9 +3000,16 @@ fieldset[disabled] .yeti .btn-link:focus {
 .yeti .btn-group-justified > .btn-group .btn {
   width: 100%;
 }
-.yeti [data-toggle="buttons"] > .btn > input[type="radio"],
-.yeti [data-toggle="buttons"] > .btn > input[type="checkbox"] {
-  display: none;
+.yeti .btn-group-justified > .btn-group .dropdown-menu {
+  left: auto;
+}
+.yeti [data-toggle="buttons"] > .btn input[type="radio"],
+.yeti [data-toggle="buttons"] > .btn-group > .btn input[type="radio"],
+.yeti [data-toggle="buttons"] > .btn input[type="checkbox"],
+.yeti [data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"] {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
 }
 .yeti .input-group {
   position: relative;
@@ -3127,9 +3348,11 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
 }
 .yeti .tab-content > .tab-pane {
   display: none;
+  visibility: hidden;
 }
 .yeti .tab-content > .active {
   display: block;
+  visibility: visible;
 }
 .yeti .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -3153,7 +3376,6 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   }
 }
 .yeti .navbar-collapse {
-  max-height: 340px;
   overflow-x: visible;
   padding-right: 15px;
   padding-left: 15px;
@@ -3172,6 +3394,7 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   }
   .yeti .navbar-collapse.collapse {
     display: block !important;
+    visibility: visible !important;
     height: auto !important;
     padding-bottom: 0;
     overflow: visible !important;
@@ -3184,6 +3407,16 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   .navbar-fixed-bottom .yeti .navbar-collapse {
     padding-left: 0;
     padding-right: 0;
+  }
+}
+.yeti .navbar-fixed-top .navbar-collapse,
+.yeti .navbar-fixed-bottom .navbar-collapse {
+  max-height: 340px;
+}
+@media (max-device-width: 480px) and (orientation: landscape) {
+  .yeti .navbar-fixed-top .navbar-collapse,
+  .yeti .navbar-fixed-bottom .navbar-collapse {
+    max-height: 200px;
   }
 }
 .yeti .container > .navbar-header,
@@ -3244,6 +3477,9 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
 .yeti .navbar-brand:focus {
   text-decoration: none;
 }
+.yeti .navbar-brand > img {
+  display: block;
+}
 @media (min-width: 768px) {
   .navbar > .container .yeti .navbar-brand,
   .navbar > .container-fluid .yeti .navbar-brand {
@@ -3263,7 +3499,7 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   border-radius: 4px;
 }
 .yeti .navbar-toggle:focus {
-  outline: none;
+  outline: 0;
 }
 .yeti .navbar-toggle .icon-bar {
   display: block;
@@ -3321,17 +3557,6 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
     padding-top: 12px;
     padding-bottom: 12px;
   }
-  .yeti .navbar-nav.navbar-right:last-child {
-    margin-right: -15px;
-  }
-}
-@media (min-width: 768px) {
-  .yeti .navbar-left {
-    float: left !important;
-  }
-  .yeti .navbar-right {
-    float: right !important;
-  }
 }
 .yeti .navbar-form {
   margin-left: -15px;
@@ -3355,6 +3580,18 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
     width: auto;
     vertical-align: middle;
   }
+  .yeti .navbar-form .form-control-static {
+    display: inline-block;
+  }
+  .yeti .navbar-form .input-group {
+    display: inline-table;
+    vertical-align: middle;
+  }
+  .yeti .navbar-form .input-group .input-group-addon,
+  .yeti .navbar-form .input-group .input-group-btn,
+  .yeti .navbar-form .input-group .form-control {
+    width: auto;
+  }
   .yeti .navbar-form .input-group > .form-control {
     width: 100%;
   }
@@ -3367,12 +3604,15 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 0;
     vertical-align: middle;
+  }
+  .yeti .navbar-form .radio label,
+  .yeti .navbar-form .checkbox label {
+    padding-left: 0;
   }
   .yeti .navbar-form .radio input[type="radio"],
   .yeti .navbar-form .checkbox input[type="checkbox"] {
-    float: none;
+    position: relative;
     margin-left: 0;
   }
   .yeti .navbar-form .has-feedback .form-control-feedback {
@@ -3382,6 +3622,9 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
 @media (max-width: 767px) {
   .yeti .navbar-form .form-group {
     margin-bottom: 5px;
+  }
+  .yeti .navbar-form .form-group:last-child {
+    margin-bottom: 0;
   }
 }
 @media (min-width: 768px) {
@@ -3395,9 +3638,6 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-  .yeti .navbar-form.navbar-right:last-child {
-    margin-right: -15px;
-  }
 }
 .yeti .navbar-nav > li > .dropdown-menu {
   margin-top: 0;
@@ -3405,6 +3645,9 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   border-top-left-radius: 0;
 }
 .yeti .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
+  margin-bottom: 0;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -3430,7 +3673,16 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
     margin-left: 15px;
     margin-right: 15px;
   }
-  .yeti .navbar-text.navbar-right:last-child {
+}
+@media (min-width: 768px) {
+  .yeti .navbar-left {
+    float: left !important;
+  }
+  .yeti .navbar-right {
+    float: right !important;
+    margin-right: -15px;
+  }
+  .yeti .navbar-right ~ .navbar-right {
     margin-right: 0;
   }
 }
@@ -3516,6 +3768,19 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
 }
 .yeti .navbar-default .navbar-link:hover {
   color: #ffffff;
+}
+.yeti .navbar-default .btn-link {
+  color: #ffffff;
+}
+.yeti .navbar-default .btn-link:hover,
+.yeti .navbar-default .btn-link:focus {
+  color: #ffffff;
+}
+.yeti .navbar-default .btn-link[disabled]:hover,
+fieldset[disabled] .yeti .navbar-default .btn-link:hover,
+.yeti .navbar-default .btn-link[disabled]:focus,
+fieldset[disabled] .yeti .navbar-default .btn-link:focus {
+  color: #cccccc;
 }
 .yeti .navbar-inverse {
   background-color: #008cba;
@@ -3606,6 +3871,19 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
 .yeti .navbar-inverse .navbar-link:hover {
   color: #ffffff;
 }
+.yeti .navbar-inverse .btn-link {
+  color: #ffffff;
+}
+.yeti .navbar-inverse .btn-link:hover,
+.yeti .navbar-inverse .btn-link:focus {
+  color: #ffffff;
+}
+.yeti .navbar-inverse .btn-link[disabled]:hover,
+fieldset[disabled] .yeti .navbar-inverse .btn-link:hover,
+.yeti .navbar-inverse .btn-link[disabled]:focus,
+fieldset[disabled] .yeti .navbar-inverse .btn-link:focus {
+  color: #444444;
+}
 .yeti .label {
   display: inline;
   padding: .2em .6em .3em;
@@ -3618,8 +3896,8 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   vertical-align: baseline;
   border-radius: .25em;
 }
-.yeti .label[href]:hover,
-.yeti .label[href]:focus {
+a.yeti .label:hover,
+a.yeti .label:focus {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
@@ -3698,22 +3976,28 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   top: 0;
   padding: 1px 5px;
 }
-.yeti a.badge:hover,
-.yeti a.badge:focus {
+a.yeti .badge:hover,
+a.yeti .badge:focus {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
 }
-.yeti a.list-group-item.active > .badge,
-.yeti .nav-pills > .active > a > .badge {
+.list-group-item.active > .yeti .badge,
+.nav-pills > .active > a > .yeti .badge {
   color: #008cba;
   background-color: #ffffff;
 }
-.yeti .nav-pills > li > a > .badge {
+.list-group-item > .yeti .badge {
+  float: right;
+}
+.list-group-item > .yeti .badge + .yeti .badge {
+  margin-right: 5px;
+}
+.nav-pills > li > a > .yeti .badge {
   margin-left: 3px;
 }
 .yeti .jumbotron {
-  padding: 30px;
+  padding: 30px 15px;
   margin-bottom: 30px;
   color: inherit;
   background-color: #fafafa;
@@ -3727,7 +4011,11 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   font-size: 23px;
   font-weight: 200;
 }
-.container .yeti .jumbotron {
+.yeti .jumbotron > hr {
+  border-top-color: #e1e1e1;
+}
+.container .yeti .jumbotron,
+.container-fluid .yeti .jumbotron {
   border-radius: 0;
 }
 .yeti .jumbotron .container {
@@ -3735,10 +4023,10 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
 }
 @media screen and (min-width: 768px) {
   .yeti .jumbotron {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding: 48px 0;
   }
-  .container .yeti .jumbotron {
+  .container .yeti .jumbotron,
+  .container-fluid .yeti .jumbotron {
     padding-left: 60px;
     padding-right: 60px;
   }
@@ -3755,8 +4043,9 @@ select[multiple].yeti .input-group-sm > .input-group-btn > .btn {
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 4px;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  -webkit-transition: border 0.2s ease-in-out;
+  -o-transition: border 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out;
 }
 .yeti .thumbnail > img,
 .yeti .thumbnail a > img {
@@ -3792,10 +4081,12 @@ a.yeti .thumbnail.active {
 .yeti .alert > p + p {
   margin-top: 5px;
 }
-.yeti .alert-dismissable {
+.yeti .alert-dismissable,
+.yeti .alert-dismissible {
   padding-right: 35px;
 }
-.yeti .alert-dismissable .close {
+.yeti .alert-dismissable .close,
+.yeti .alert-dismissible .close {
   position: relative;
   top: -2px;
   right: -21px;
@@ -3882,15 +4173,20 @@ a.yeti .thumbnail.active {
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
+  -o-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
-.yeti .progress-striped .progress-bar {
+.yeti .progress-striped .progress-bar,
+.yeti .progress-bar-striped {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
-.yeti .progress.active .progress-bar {
+.yeti .progress.active .progress-bar,
+.yeti .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
 }
 .yeti .progress-bar-success {
@@ -3898,6 +4194,7 @@ a.yeti .thumbnail.active {
 }
 .progress-striped .yeti .progress-bar-success {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .yeti .progress-bar-info {
@@ -3905,6 +4202,7 @@ a.yeti .thumbnail.active {
 }
 .progress-striped .yeti .progress-bar-info {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .yeti .progress-bar-warning {
@@ -3912,6 +4210,7 @@ a.yeti .thumbnail.active {
 }
 .progress-striped .yeti .progress-bar-warning {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .yeti .progress-bar-danger {
@@ -3919,6 +4218,7 @@ a.yeti .thumbnail.active {
 }
 .progress-striped .yeti .progress-bar-danger {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .yeti .list-group {
@@ -3942,12 +4242,6 @@ a.yeti .thumbnail.active {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
 }
-.yeti .list-group-item > .badge {
-  float: right;
-}
-.yeti .list-group-item > .badge + .badge {
-  margin-right: 5px;
-}
 .yeti a.list-group-item {
   color: #555555;
 }
@@ -3957,24 +4251,48 @@ a.yeti .thumbnail.active {
 .yeti a.list-group-item:hover,
 .yeti a.list-group-item:focus {
   text-decoration: none;
+  color: #555555;
   background-color: #f5f5f5;
 }
-.yeti a.list-group-item.active,
-.yeti a.list-group-item.active:hover,
-.yeti a.list-group-item.active:focus {
+.yeti .list-group-item.disabled,
+.yeti .list-group-item.disabled:hover,
+.yeti .list-group-item.disabled:focus {
+  background-color: #eeeeee;
+  color: #999999;
+  cursor: not-allowed;
+}
+.yeti .list-group-item.disabled .list-group-item-heading,
+.yeti .list-group-item.disabled:hover .list-group-item-heading,
+.yeti .list-group-item.disabled:focus .list-group-item-heading {
+  color: inherit;
+}
+.yeti .list-group-item.disabled .list-group-item-text,
+.yeti .list-group-item.disabled:hover .list-group-item-text,
+.yeti .list-group-item.disabled:focus .list-group-item-text {
+  color: #999999;
+}
+.yeti .list-group-item.active,
+.yeti .list-group-item.active:hover,
+.yeti .list-group-item.active:focus {
   z-index: 2;
   color: #ffffff;
   background-color: #008cba;
   border-color: #008cba;
 }
-.yeti a.list-group-item.active .list-group-item-heading,
-.yeti a.list-group-item.active:hover .list-group-item-heading,
-.yeti a.list-group-item.active:focus .list-group-item-heading {
+.yeti .list-group-item.active .list-group-item-heading,
+.yeti .list-group-item.active:hover .list-group-item-heading,
+.yeti .list-group-item.active:focus .list-group-item-heading,
+.yeti .list-group-item.active .list-group-item-heading > small,
+.yeti .list-group-item.active:hover .list-group-item-heading > small,
+.yeti .list-group-item.active:focus .list-group-item-heading > small,
+.yeti .list-group-item.active .list-group-item-heading > .small,
+.yeti .list-group-item.active:hover .list-group-item-heading > .small,
+.yeti .list-group-item.active:focus .list-group-item-heading > .small {
   color: inherit;
 }
-.yeti a.list-group-item.active .list-group-item-text,
-.yeti a.list-group-item.active:hover .list-group-item-text,
-.yeti a.list-group-item.active:focus .list-group-item-text {
+.yeti .list-group-item.active .list-group-item-text,
+.yeti .list-group-item.active:hover .list-group-item-text,
+.yeti .list-group-item.active:focus .list-group-item-text {
   color: #87e1ff;
 }
 .yeti .list-group-item-success {
@@ -4099,7 +4417,11 @@ a.yeti .list-group-item-danger.active:focus {
   font-size: 17px;
   color: inherit;
 }
-.yeti .panel-title > a {
+.yeti .panel-title > a,
+.yeti .panel-title > small,
+.yeti .panel-title > .small,
+.yeti .panel-title > small > a,
+.yeti .panel-title > .small > a {
   color: inherit;
 }
 .yeti .panel-footer {
@@ -4109,19 +4431,23 @@ a.yeti .list-group-item-danger.active:focus {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.yeti .panel > .list-group {
+.yeti .panel > .list-group,
+.yeti .panel > .panel-collapse > .list-group {
   margin-bottom: 0;
 }
-.yeti .panel > .list-group .list-group-item {
+.yeti .panel > .list-group .list-group-item,
+.yeti .panel > .panel-collapse > .list-group .list-group-item {
   border-width: 1px 0;
   border-radius: 0;
 }
-.yeti .panel > .list-group:first-child .list-group-item:first-child {
+.yeti .panel > .list-group:first-child .list-group-item:first-child,
+.yeti .panel > .panel-collapse > .list-group:first-child .list-group-item:first-child {
   border-top: 0;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
-.yeti .panel > .list-group:last-child .list-group-item:last-child {
+.yeti .panel > .list-group:last-child .list-group-item:last-child,
+.yeti .panel > .panel-collapse > .list-group:last-child .list-group-item:last-child {
   border-bottom: 0;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
@@ -4129,14 +4455,31 @@ a.yeti .list-group-item-danger.active:focus {
 .yeti .panel-heading + .list-group .list-group-item:first-child {
   border-top-width: 0;
 }
+.yeti .list-group + .panel-footer {
+  border-top-width: 0;
+}
 .yeti .panel > .table,
-.yeti .panel > .table-responsive > .table {
+.yeti .panel > .table-responsive > .table,
+.yeti .panel > .panel-collapse > .table {
   margin-bottom: 0;
+}
+.yeti .panel > .table caption,
+.yeti .panel > .table-responsive > .table caption,
+.yeti .panel > .panel-collapse > .table caption {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .yeti .panel > .table:first-child,
 .yeti .panel > .table-responsive:first-child > .table:first-child {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
+}
+.yeti .panel > .table:first-child > thead:first-child > tr:first-child,
+.yeti .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child,
+.yeti .panel > .table:first-child > tbody:first-child > tr:first-child,
+.yeti .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 .yeti .panel > .table:first-child > thead:first-child > tr:first-child td:first-child,
 .yeti .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,
@@ -4163,6 +4506,13 @@ a.yeti .list-group-item-danger.active:focus {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
+.yeti .panel > .table:last-child > tbody:last-child > tr:last-child,
+.yeti .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child,
+.yeti .panel > .table:last-child > tfoot:last-child > tr:last-child,
+.yeti .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
 .yeti .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child,
 .yeti .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child,
 .yeti .panel > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
@@ -4184,7 +4534,9 @@ a.yeti .list-group-item-danger.active:focus {
   border-bottom-right-radius: 3px;
 }
 .yeti .panel > .panel-body + .table,
-.yeti .panel > .panel-body + .table-responsive {
+.yeti .panel > .panel-body + .table-responsive,
+.yeti .panel > .table + .panel-body,
+.yeti .panel > .table-responsive + .panel-body {
   border-top: 1px solid #dddddd;
 }
 .yeti .panel > .table > tbody:first-child > tr:first-child th,
@@ -4253,7 +4605,6 @@ a.yeti .list-group-item-danger.active:focus {
 .yeti .panel-group .panel {
   margin-bottom: 0;
   border-radius: 4px;
-  overflow: hidden;
 }
 .yeti .panel-group .panel + .panel {
   margin-top: 5px;
@@ -4261,7 +4612,8 @@ a.yeti .list-group-item-danger.active:focus {
 .yeti .panel-group .panel-heading {
   border-bottom: 0;
 }
-.yeti .panel-group .panel-heading + .panel-collapse .panel-body {
+.yeti .panel-group .panel-heading + .panel-collapse > .panel-body,
+.yeti .panel-group .panel-heading + .panel-collapse > .list-group {
   border-top: 1px solid #dddddd;
 }
 .yeti .panel-group .panel-footer {
@@ -4278,10 +4630,14 @@ a.yeti .list-group-item-danger.active:focus {
   background-color: #f5f5f5;
   border-color: #dddddd;
 }
-.yeti .panel-default > .panel-heading + .panel-collapse .panel-body {
+.yeti .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #dddddd;
 }
-.yeti .panel-default > .panel-footer + .panel-collapse .panel-body {
+.yeti .panel-default > .panel-heading .badge {
+  color: #f5f5f5;
+  background-color: #333333;
+}
+.yeti .panel-default > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #dddddd;
 }
 .yeti .panel-primary {
@@ -4292,10 +4648,14 @@ a.yeti .list-group-item-danger.active:focus {
   background-color: #008cba;
   border-color: #008cba;
 }
-.yeti .panel-primary > .panel-heading + .panel-collapse .panel-body {
+.yeti .panel-primary > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #008cba;
 }
-.yeti .panel-primary > .panel-footer + .panel-collapse .panel-body {
+.yeti .panel-primary > .panel-heading .badge {
+  color: #008cba;
+  background-color: #ffffff;
+}
+.yeti .panel-primary > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #008cba;
 }
 .yeti .panel-success {
@@ -4306,10 +4666,14 @@ a.yeti .list-group-item-danger.active:focus {
   background-color: #43ac6a;
   border-color: #3c9a5f;
 }
-.yeti .panel-success > .panel-heading + .panel-collapse .panel-body {
+.yeti .panel-success > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #3c9a5f;
 }
-.yeti .panel-success > .panel-footer + .panel-collapse .panel-body {
+.yeti .panel-success > .panel-heading .badge {
+  color: #43ac6a;
+  background-color: #ffffff;
+}
+.yeti .panel-success > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #3c9a5f;
 }
 .yeti .panel-info {
@@ -4320,10 +4684,14 @@ a.yeti .list-group-item-danger.active:focus {
   background-color: #5bc0de;
   border-color: #3db5d8;
 }
-.yeti .panel-info > .panel-heading + .panel-collapse .panel-body {
+.yeti .panel-info > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #3db5d8;
 }
-.yeti .panel-info > .panel-footer + .panel-collapse .panel-body {
+.yeti .panel-info > .panel-heading .badge {
+  color: #5bc0de;
+  background-color: #ffffff;
+}
+.yeti .panel-info > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #3db5d8;
 }
 .yeti .panel-warning {
@@ -4334,10 +4702,14 @@ a.yeti .list-group-item-danger.active:focus {
   background-color: #e99002;
   border-color: #d08002;
 }
-.yeti .panel-warning > .panel-heading + .panel-collapse .panel-body {
+.yeti .panel-warning > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #d08002;
 }
-.yeti .panel-warning > .panel-footer + .panel-collapse .panel-body {
+.yeti .panel-warning > .panel-heading .badge {
+  color: #e99002;
+  background-color: #ffffff;
+}
+.yeti .panel-warning > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #d08002;
 }
 .yeti .panel-danger {
@@ -4348,10 +4720,14 @@ a.yeti .list-group-item-danger.active:focus {
   background-color: #f04124;
   border-color: #ea2f10;
 }
-.yeti .panel-danger > .panel-heading + .panel-collapse .panel-body {
+.yeti .panel-danger > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #ea2f10;
 }
-.yeti .panel-danger > .panel-footer + .panel-collapse .panel-body {
+.yeti .panel-danger > .panel-heading .badge {
+  color: #f04124;
+  background-color: #ffffff;
+}
+.yeti .panel-danger > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ea2f10;
 }
 .yeti .close {
@@ -4384,8 +4760,7 @@ button.yeti .close {
 }
 .yeti .modal {
   display: none;
-  overflow: auto;
-  overflow-y: scroll;
+  overflow: hidden;
   position: fixed;
   top: 0;
   right: 0;
@@ -4398,6 +4773,7 @@ button.yeti .close {
 .yeti .modal.fade .modal-dialog {
   -webkit-transform: translate(0, -25%);
   -ms-transform: translate(0, -25%);
+  -o-transform: translate(0, -25%);
   transform: translate(0, -25%);
   -webkit-transition: -webkit-transform 0.3s ease-out;
   -moz-transition: -moz-transform 0.3s ease-out;
@@ -4407,7 +4783,12 @@ button.yeti .close {
 .yeti .modal.in .modal-dialog {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
   transform: translate(0, 0);
+}
+.yeti .modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .yeti .modal-dialog {
   position: relative;
@@ -4423,15 +4804,13 @@ button.yeti .close {
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
-  outline: none;
+  outline: 0;
 }
 .yeti .modal-backdrop {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
-  z-index: 1040;
   background-color: #000000;
 }
 .yeti .modal-backdrop.fade {
@@ -4459,8 +4838,7 @@ button.yeti .close {
   padding: 20px;
 }
 .yeti .modal-footer {
-  margin-top: 15px;
-  padding: 19px 20px 20px;
+  padding: 20px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
 }
@@ -4473,6 +4851,13 @@ button.yeti .close {
 }
 .yeti .modal-footer .btn-block + .btn-block {
   margin-left: 0;
+}
+.yeti .modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
 }
 @media (min-width: 768px) {
   .yeti .modal-dialog {
@@ -4497,7 +4882,9 @@ button.yeti .close {
   z-index: 1070;
   display: block;
   visibility: visible;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
+  font-weight: normal;
   line-height: 1.4;
   opacity: 0;
   filter: alpha(opacity=0);
@@ -4547,13 +4934,15 @@ button.yeti .close {
 }
 .yeti .tooltip.top-left .tooltip-arrow {
   bottom: 0;
-  left: 5px;
+  right: 5px;
+  margin-bottom: -5px;
   border-width: 5px 5px 0;
   border-top-color: #333333;
 }
 .yeti .tooltip.top-right .tooltip-arrow {
   bottom: 0;
-  right: 5px;
+  left: 5px;
+  margin-bottom: -5px;
   border-width: 5px 5px 0;
   border-top-color: #333333;
 }
@@ -4580,13 +4969,15 @@ button.yeti .close {
 }
 .yeti .tooltip.bottom-left .tooltip-arrow {
   top: 0;
-  left: 5px;
+  right: 5px;
+  margin-top: -5px;
   border-width: 0 5px 5px;
   border-bottom-color: #333333;
 }
 .yeti .tooltip.bottom-right .tooltip-arrow {
   top: 0;
-  right: 5px;
+  left: 5px;
+  margin-top: -5px;
   border-width: 0 5px 5px;
   border-bottom-color: #333333;
 }
@@ -4598,6 +4989,10 @@ button.yeti .close {
   display: none;
   max-width: 276px;
   padding: 1px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 1.4;
   text-align: left;
   background-color: #333333;
   background-clip: padding-box;
@@ -4624,11 +5019,9 @@ button.yeti .close {
   margin: 0;
   padding: 8px 14px;
   font-size: 15px;
-  font-weight: normal;
-  line-height: 18px;
   background-color: #333333;
   border-bottom: 1px solid #262626;
-  border-radius: 5px 5px 0 0;
+  border-radius: -1 -1 0 0;
 }
 .yeti .popover-content {
   padding: 9px 14px;
@@ -4711,6 +5104,8 @@ button.yeti .close {
 }
 .yeti .clearfix:before,
 .yeti .clearfix:after,
+.yeti .yeti .dl-horizontal dd:before,
+.yeti .yeti .dl-horizontal dd:after,
 .yeti .yeti .container:before,
 .yeti .yeti .container:after,
 .yeti .yeti .container-fluid:before,
@@ -4739,6 +5134,7 @@ button.yeti .close {
   display: table;
 }
 .yeti .clearfix:after,
+.yeti .yeti .dl-horizontal dd:after,
 .yeti .yeti .container:after,
 .yeti .yeti .container-fluid:after,
 .yeti .yeti .row:after,
@@ -4796,6 +5192,20 @@ button.yeti .close {
 .yeti .visible-lg {
   display: none !important;
 }
+.yeti .visible-xs-block,
+.yeti .visible-xs-inline,
+.yeti .visible-xs-inline-block,
+.yeti .visible-sm-block,
+.yeti .visible-sm-inline,
+.yeti .visible-sm-inline-block,
+.yeti .visible-md-block,
+.yeti .visible-md-inline,
+.yeti .visible-md-inline-block,
+.yeti .visible-lg-block,
+.yeti .visible-lg-inline,
+.yeti .visible-lg-inline-block {
+  display: none !important;
+}
 @media (max-width: 767px) {
   .yeti .visible-xs {
     display: block !important;
@@ -4809,6 +5219,21 @@ button.yeti .close {
   th.yeti .visible-xs,
   td.yeti .visible-xs {
     display: table-cell !important;
+  }
+}
+@media (max-width: 767px) {
+  .yeti .visible-xs-block {
+    display: block !important;
+  }
+}
+@media (max-width: 767px) {
+  .yeti .visible-xs-inline {
+    display: inline !important;
+  }
+}
+@media (max-width: 767px) {
+  .yeti .visible-xs-inline-block {
+    display: inline-block !important;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -4826,6 +5251,21 @@ button.yeti .close {
     display: table-cell !important;
   }
 }
+@media (min-width: 768px) and (max-width: 991px) {
+  .yeti .visible-sm-block {
+    display: block !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .yeti .visible-sm-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .yeti .visible-sm-inline-block {
+    display: inline-block !important;
+  }
+}
 @media (min-width: 992px) and (max-width: 1199px) {
   .yeti .visible-md {
     display: block !important;
@@ -4841,6 +5281,21 @@ button.yeti .close {
     display: table-cell !important;
   }
 }
+@media (min-width: 992px) and (max-width: 1199px) {
+  .yeti .visible-md-block {
+    display: block !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .yeti .visible-md-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .yeti .visible-md-inline-block {
+    display: inline-block !important;
+  }
+}
 @media (min-width: 1200px) {
   .yeti .visible-lg {
     display: block !important;
@@ -4854,6 +5309,21 @@ button.yeti .close {
   th.yeti .visible-lg,
   td.yeti .visible-lg {
     display: table-cell !important;
+  }
+}
+@media (min-width: 1200px) {
+  .yeti .visible-lg-block {
+    display: block !important;
+  }
+}
+@media (min-width: 1200px) {
+  .yeti .visible-lg-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 1200px) {
+  .yeti .visible-lg-inline-block {
+    display: inline-block !important;
   }
 }
 @media (max-width: 767px) {
@@ -4892,6 +5362,30 @@ button.yeti .close {
   th.yeti .visible-print,
   td.yeti .visible-print {
     display: table-cell !important;
+  }
+}
+.yeti .visible-print-block {
+  display: none !important;
+}
+@media print {
+  .yeti .visible-print-block {
+    display: block !important;
+  }
+}
+.yeti .visible-print-inline {
+  display: none !important;
+}
+@media print {
+  .yeti .visible-print-inline {
+    display: inline !important;
+  }
+}
+.yeti .visible-print-inline-block {
+  display: none !important;
+}
+@media print {
+  .yeti .visible-print-inline-block {
+    display: inline-block !important;
   }
 }
 @media print {
@@ -5874,7 +6368,8 @@ button.yeti .close {
   background-color: #ffffff;
 }
 .yeti .pick-a-color-markup .spectrum-white {
-  background-image: -webkit-linear-gradient(left, color-stop(#ffffff 0%), color-stop(#808080 100%));
+  background-image: -webkit-linear-gradient(left, #ffffff 0%, #808080 100%);
+  background-image: -o-linear-gradient(left, #ffffff 0%, #808080 100%);
   background-image: linear-gradient(to right, #ffffff 0%, #808080 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ff808080', GradientType=1);
@@ -5931,7 +6426,8 @@ button.yeti .close {
   background-repeat: repeat-x;
 }
 .yeti .pick-a-color-markup .spectrum-black {
-  background-image: -webkit-linear-gradient(left, color-stop(#000000 0%), color-stop(#808080 100%));
+  background-image: -webkit-linear-gradient(left, #000000 0%, #808080 100%);
+  background-image: -o-linear-gradient(left, #000000 0%, #808080 100%);
   background-image: linear-gradient(to right, #000000 0%, #808080 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff000000', endColorstr='#ff808080', GradientType=1);
@@ -5962,7 +6458,8 @@ button.yeti .close {
 }
 .yeti .pick-a-color-markup .red-spectrum-0,
 .yeti .pick-a-color-markup .lightness-spectrum-0 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ffffff 0%), color-stop(#ff0000 100%));
+  background-image: -webkit-linear-gradient(left, #ffffff 0%, #ff0000 100%);
+  background-image: -o-linear-gradient(left, #ffffff 0%, #ff0000 100%);
   background-image: linear-gradient(to right, #ffffff 0%, #ff0000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffff0000', GradientType=1);
@@ -5971,7 +6468,8 @@ button.yeti .close {
 }
 .yeti .pick-a-color-markup .red-spectrum-1,
 .yeti .pick-a-color-markup .lightness-spectrum-1 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ff0000 0%), color-stop(#000000 100%));
+  background-image: -webkit-linear-gradient(left, #ff0000 0%, #000000 100%);
+  background-image: -o-linear-gradient(left, #ff0000 0%, #000000 100%);
   background-image: linear-gradient(to right, #ff0000 0%, #000000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffff0000', endColorstr='#ff000000', GradientType=1);
@@ -5989,7 +6487,8 @@ button.yeti .close {
   }
 }
 .yeti .pick-a-color-markup .orange-spectrum-0 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ffffff 0%), color-stop(#ff6600 100%));
+  background-image: -webkit-linear-gradient(left, #ffffff 0%, #ff6600 100%);
+  background-image: -o-linear-gradient(left, #ffffff 0%, #ff6600 100%);
   background-image: linear-gradient(to right, #ffffff 0%, #ff6600 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffff6600', GradientType=1);
@@ -5997,7 +6496,8 @@ button.yeti .close {
   border-top-left-radius: 4px;
 }
 .yeti .pick-a-color-markup .orange-spectrum-1 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ff6600 0%), color-stop(#000000 100%));
+  background-image: -webkit-linear-gradient(left, #ff6600 0%, #000000 100%);
+  background-image: -o-linear-gradient(left, #ff6600 0%, #000000 100%);
   background-image: linear-gradient(to right, #ff6600 0%, #000000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffff6600', endColorstr='#ff000000', GradientType=1);
@@ -6005,7 +6505,8 @@ button.yeti .close {
   border-top-right-radius: 4px;
 }
 .yeti .pick-a-color-markup .yellow-spectrum-0 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ffffff 0%), color-stop(#ffff00 100%));
+  background-image: -webkit-linear-gradient(left, #ffffff 0%, #ffff00 100%);
+  background-image: -o-linear-gradient(left, #ffffff 0%, #ffff00 100%);
   background-image: linear-gradient(to right, #ffffff 0%, #ffff00 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffffff00', GradientType=1);
@@ -6013,7 +6514,8 @@ button.yeti .close {
   border-top-left-radius: 4px;
 }
 .yeti .pick-a-color-markup .yellow-spectrum-1 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ffff00 0%), color-stop(#000000 100%));
+  background-image: -webkit-linear-gradient(left, #ffff00 0%, #000000 100%);
+  background-image: -o-linear-gradient(left, #ffff00 0%, #000000 100%);
   background-image: linear-gradient(to right, #ffff00 0%, #000000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff00', endColorstr='#ff000000', GradientType=1);
@@ -6021,7 +6523,8 @@ button.yeti .close {
   border-top-right-radius: 4px;
 }
 .yeti .pick-a-color-markup .green-spectrum-0 {
-  background-image: -webkit-linear-gradient(left, color-stop(#80ff80 0%), color-stop(#008000 100%));
+  background-image: -webkit-linear-gradient(left, #80ff80 0%, #008000 100%);
+  background-image: -o-linear-gradient(left, #80ff80 0%, #008000 100%);
   background-image: linear-gradient(to right, #80ff80 0%, #008000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff80ff80', endColorstr='#ff008000', GradientType=1);
@@ -6029,7 +6532,8 @@ button.yeti .close {
   border-top-left-radius: 4px;
 }
 .yeti .pick-a-color-markup .green-spectrum-1 {
-  background-image: -webkit-linear-gradient(left, color-stop(#008000 0%), color-stop(#000000 100%));
+  background-image: -webkit-linear-gradient(left, #008000 0%, #000000 100%);
+  background-image: -o-linear-gradient(left, #008000 0%, #000000 100%);
   background-image: linear-gradient(to right, #008000 0%, #000000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff008000', endColorstr='#ff000000', GradientType=1);
@@ -6037,7 +6541,8 @@ button.yeti .close {
   border-top-right-radius: 4px;
 }
 .yeti .pick-a-color-markup .blue-spectrum-0 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ffffff 0%), color-stop(#0000ff 100%));
+  background-image: -webkit-linear-gradient(left, #ffffff 0%, #0000ff 100%);
+  background-image: -o-linear-gradient(left, #ffffff 0%, #0000ff 100%);
   background-image: linear-gradient(to right, #ffffff 0%, #0000ff 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ff0000ff', GradientType=1);
@@ -6045,7 +6550,8 @@ button.yeti .close {
   border-top-left-radius: 4px;
 }
 .yeti .pick-a-color-markup .blue-spectrum-1 {
-  background-image: -webkit-linear-gradient(left, color-stop(#0000ff 0%), color-stop(#000000 100%));
+  background-image: -webkit-linear-gradient(left, #0000ff 0%, #000000 100%);
+  background-image: -o-linear-gradient(left, #0000ff 0%, #000000 100%);
   background-image: linear-gradient(to right, #0000ff 0%, #000000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000ff', endColorstr='#ff000000', GradientType=1);
@@ -6053,7 +6559,8 @@ button.yeti .close {
   border-top-right-radius: 4px;
 }
 .yeti .pick-a-color-markup .purple-spectrum-0 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ff80ff 0%), color-stop(#80007f 100%));
+  background-image: -webkit-linear-gradient(left, #ff80ff 0%, #80007f 100%);
+  background-image: -o-linear-gradient(left, #ff80ff 0%, #80007f 100%);
   background-image: linear-gradient(to right, #ff80ff 0%, #80007f 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffff80ff', endColorstr='#ff80007f', GradientType=1);
@@ -6061,7 +6568,8 @@ button.yeti .close {
   border-top-left-radius: 4px;
 }
 .yeti .pick-a-color-markup .purple-spectrum-1 {
-  background-image: -webkit-linear-gradient(left, color-stop(#80007f 0%), color-stop(#000000 100%));
+  background-image: -webkit-linear-gradient(left, #80007f 0%, #000000 100%);
+  background-image: -o-linear-gradient(left, #80007f 0%, #000000 100%);
   background-image: linear-gradient(to right, #80007f 0%, #000000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff80007f', endColorstr='#ff000000', GradientType=1);
@@ -6069,7 +6577,8 @@ button.yeti .close {
   border-top-right-radius: 4px;
 }
 .yeti .pick-a-color-markup .saturation-spectrum-0 {
-  background-image: -webkit-linear-gradient(left, color-stop(#808080 0%), color-stop(#bf4040 100%));
+  background-image: -webkit-linear-gradient(left, #808080 0%, #bf4040 100%);
+  background-image: -o-linear-gradient(left, #808080 0%, #bf4040 100%);
   background-image: linear-gradient(to right, #808080 0%, #bf4040 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff808080', endColorstr='#ffbf4040', GradientType=1);
@@ -6083,7 +6592,8 @@ button.yeti .close {
   }
 }
 .yeti .pick-a-color-markup .saturation-spectrum-1 {
-  background-image: -webkit-linear-gradient(left, color-stop(#bf4040 0%), color-stop(#ff0000 100%));
+  background-image: -webkit-linear-gradient(left, #bf4040 0%, #ff0000 100%);
+  background-image: -o-linear-gradient(left, #bf4040 0%, #ff0000 100%);
   background-image: linear-gradient(to right, #bf4040 0%, #ff0000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbf4040', endColorstr='#ffff0000', GradientType=1);
@@ -6097,19 +6607,22 @@ button.yeti .close {
   }
 }
 .yeti .pick-a-color-markup .hue-spectrum-0 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ff0000 0%), color-stop(#ffff00 100%));
+  background-image: -webkit-linear-gradient(left, #ff0000 0%, #ffff00 100%);
+  background-image: -o-linear-gradient(left, #ff0000 0%, #ffff00 100%);
   background-image: linear-gradient(to right, #ff0000 0%, #ffff00 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffff0000', endColorstr='#ffffff00', GradientType=1);
 }
 .yeti .pick-a-color-markup .hue-spectrum-1 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ffff00 0%), color-stop(#00ff00 100%));
+  background-image: -webkit-linear-gradient(left, #ffff00 0%, #00ff00 100%);
+  background-image: -o-linear-gradient(left, #ffff00 0%, #00ff00 100%);
   background-image: linear-gradient(to right, #ffff00 0%, #00ff00 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff00', endColorstr='#ff00ff00', GradientType=1);
 }
 .yeti .pick-a-color-markup .hue-spectrum-2 {
-  background-image: -webkit-linear-gradient(left, color-stop(#00ff00 0%), color-stop(#00ffff 100%));
+  background-image: -webkit-linear-gradient(left, #00ff00 0%, #00ffff 100%);
+  background-image: -o-linear-gradient(left, #00ff00 0%, #00ffff 100%);
   background-image: linear-gradient(to right, #00ff00 0%, #00ffff 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00ff00', endColorstr='#ff00ffff', GradientType=1);
@@ -6117,7 +6630,8 @@ button.yeti .close {
   position: relative;
 }
 .yeti .pick-a-color-markup .hue-spectrum-3 {
-  background-image: -webkit-linear-gradient(left, color-stop(#00ffff 0%), color-stop(#0000ff 100%));
+  background-image: -webkit-linear-gradient(left, #00ffff 0%, #0000ff 100%);
+  background-image: -o-linear-gradient(left, #00ffff 0%, #0000ff 100%);
   background-image: linear-gradient(to right, #00ffff 0%, #0000ff 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00ffff', endColorstr='#ff0000ff', GradientType=1);
@@ -6125,7 +6639,8 @@ button.yeti .close {
   position: relative;
 }
 .yeti .pick-a-color-markup .hue-spectrum-4 {
-  background-image: -webkit-linear-gradient(left, color-stop(#0000ff 0%), color-stop(#ff00ff 100%));
+  background-image: -webkit-linear-gradient(left, #0000ff 0%, #ff00ff 100%);
+  background-image: -o-linear-gradient(left, #0000ff 0%, #ff00ff 100%);
   background-image: linear-gradient(to right, #0000ff 0%, #ff00ff 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000ff', endColorstr='#ffff00ff', GradientType=1);
@@ -6133,7 +6648,8 @@ button.yeti .close {
   position: relative;
 }
 .yeti .pick-a-color-markup .hue-spectrum-5 {
-  background-image: -webkit-linear-gradient(left, color-stop(#ff00ff 0%), color-stop(#ff0000 100%));
+  background-image: -webkit-linear-gradient(left, #ff00ff 0%, #ff0000 100%);
+  background-image: -o-linear-gradient(left, #ff00ff 0%, #ff0000 100%);
   background-image: linear-gradient(to right, #ff00ff 0%, #ff0000 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffff00ff', endColorstr='#ffff0000', GradientType=1);
