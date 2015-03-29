@@ -481,6 +481,9 @@
   overflow: visible;
   clip: auto;
 }
+.slate [role="button"] {
+  cursor: pointer;
+}
 .slate h1,
 .slate h2,
 .slate h3,
@@ -1882,9 +1885,12 @@ a.slate .bg-danger:hover {
 .slate .form-control[disabled],
 .slate .form-control[readonly],
 fieldset[disabled] .slate .form-control {
-  cursor: not-allowed;
   background-color: #999999;
   opacity: 1;
+}
+.slate .form-control[disabled],
+fieldset[disabled] .slate .form-control {
+  cursor: not-allowed;
 }
 textarea.slate .form-control {
   height: auto;
@@ -1952,6 +1958,7 @@ textarea.slate .form-control {
 }
 .slate .radio-inline,
 .slate .checkbox-inline {
+  position: relative;
   display: inline-block;
   padding-left: 20px;
   margin-bottom: 0;
@@ -1988,6 +1995,7 @@ fieldset[disabled] .slate .checkbox label {
   padding-top: 9px;
   padding-bottom: 9px;
   margin-bottom: 0;
+  min-height: 34px;
 }
 .slate .form-control-static.input-lg,
 .slate .form-control-static.input-sm {
@@ -2029,6 +2037,7 @@ select[multiple].slate .form-group-sm .form-control {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
+  min-height: 32px;
 }
 .slate .input-lg {
   height: 54px;
@@ -2065,6 +2074,7 @@ select[multiple].slate .form-group-lg .form-control {
   padding: 14px 16px;
   font-size: 18px;
   line-height: 1.33;
+  min-height: 38px;
 }
 .slate .has-feedback {
   position: relative;
@@ -2679,11 +2689,9 @@ fieldset[disabled] .slate .btn-link:focus {
 }
 .slate .collapse {
   display: none;
-  visibility: hidden;
 }
 .slate .collapse.in {
   display: block;
-  visibility: visible;
 }
 tr.slate .collapse.in {
   display: table-row;
@@ -2708,7 +2716,7 @@ tbody.slate .collapse.in {
   height: 0;
   margin-left: 2px;
   vertical-align: middle;
-  border-top: 4px solid;
+  border-top: 4px dashed;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -3347,11 +3355,9 @@ select[multiple].slate .input-group-sm > .input-group-btn > .btn {
 }
 .slate .tab-content > .tab-pane {
   display: none;
-  visibility: hidden;
 }
 .slate .tab-content > .active {
   display: block;
-  visibility: visible;
 }
 .slate .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -3393,7 +3399,6 @@ select[multiple].slate .input-group-sm > .input-group-btn > .btn {
   }
   .slate .navbar-collapse.collapse {
     display: block !important;
-    visibility: visible !important;
     height: auto !important;
     padding-bottom: 0;
     overflow: visible !important;
@@ -3971,7 +3976,8 @@ a.slate .label:focus {
   position: relative;
   top: -1px;
 }
-.btn-xs .slate .badge {
+.btn-xs .slate .badge,
+.btn-group-xs > .btn .slate .badge {
   top: 0;
   padding: 1px 5px;
 }
@@ -4806,10 +4812,12 @@ button.slate .close {
   outline: 0;
 }
 .slate .modal-backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
   left: 0;
+  z-index: 1040;
   background-color: #000000;
 }
 .slate .modal-backdrop.fade {
@@ -4880,7 +4888,6 @@ button.slate .close {
   position: absolute;
   z-index: 1070;
   display: block;
-  visibility: visible;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-weight: normal;
@@ -5177,7 +5184,6 @@ button.slate .close {
 }
 .slate .hidden {
   display: none !important;
-  visibility: hidden !important;
 }
 .slate .affix {
   position: fixed;
@@ -7031,10 +7037,13 @@ button.slate .close {
 }
 .slate .handle-se {
   cursor: se-resize;
-  width: 12px;
-  height: 12px;
+  width: 0;
+  height: 0;
   right: 1px;
   bottom: 1px;
+  border-style: solid;
+  border-width: 0 0 12px 12px;
+  border-color: transparent;
 }
 .slate .handle-ne {
   cursor: ne-resize;
@@ -7089,8 +7098,6 @@ button.slate .close {
   border: 1.5px solid #B3B2B3;
 }
 .slate .gridster .gridster-item:hover .handle-se {
-  border-style: solid;
-  border-width: 0 0 13px 13px;
   border-color: transparent transparent #ccc;
 }
 .slate * {
@@ -7126,6 +7133,9 @@ button.slate .close {
 .slate h2 {
   margin: 20px 0;
   color: #666;
+}
+.slate .text-large {
+  font-size: 28px;
 }
 @media (max-width: 767px) {
   .slate .container-fluid {
@@ -7173,6 +7183,14 @@ button.slate .close {
 }
 .slate .navbar-brand {
   margin-left: 30px;
+}
+.slate .navbar-notification {
+  right: 0px;
+  width: 30px;
+}
+.slate .navbar-notification .no-padding {
+  padding: 15px 2px;
+  margin: 0px;
 }
 .slate .fillspace {
   position: absolute;
@@ -7281,6 +7299,7 @@ button.slate .close {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05);
   padding-bottom: 3px;
   margin-bottom: 5px;
+  white-space: nowrap;
 }
 .slate .sitemap-frame {
   margin-bottom: 20px;
@@ -7319,23 +7338,29 @@ button.slate .close {
   margin-bottom: 20px;
 }
 .slate .page-header {
-  margin-top: 20px;
+  margin-top: 60px;
 }
 .slate ul {
   list-style: none;
 }
-.slate .box {
+.slate .dashboard {
   height: 100%;
   width: 100%;
   overflow: hide;
 }
-.slate .box-edit {
-  border: 1px solid #ccc;
+.slate .dashboard-toolbar {
+  margin-bottom: 10px;
 }
-.slate .box-header {
+.slate .dashboard-edit {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+.slate .dashboard-header {
   background-color: #3a3f44;
   opacity: 0.9;
-  height: 40px;
+  height: 20px;
   cursor: move;
   position: absolute;
   left: 5px;
@@ -7343,37 +7368,24 @@ button.slate .close {
   right: 5px;
   z-index: 1000;
 }
-.slate .box-header .box-header-btns {
-  top: 10px;
-  right: 10px;
+.slate .dashboard-header .dashboard-header-btns {
+  right: 5px;
   cursor: pointer;
   position: absolute;
 }
-.slate .box-header .box-header-btns a {
+.slate .dashboard-header .dashboard-header-btns a {
   padding-left: 5px;
   color: #c8c8c8;
 }
-.slate .box-header .box-header-btns a:hover {
+.slate .dashboard-header .dashboard-header-btns a:hover {
   color: #ffffff;
 }
-.slate .box-content {
+.slate .dashboard-content {
   position: absolute;
   left: 0px;
   top: 0px;
   right: 0px;
   bottom: 0px;
-}
-.slate .dialgauge-unit {
-  font-size: 14px;
-  font-weight: 100;
-  fill: grey;
-  stroke: grey;
-}
-.slate .dialgauge-value {
-  font-size: 20px;
-  font-weight: 200;
-  fill: white;
-  stroke: white;
 }
 .slate .icon-lg {
   display: inline-block;
@@ -7579,4 +7591,31 @@ button.slate .close {
 .slate .zwave-logreader-popover {
   max-width: 100%;
   white-space: nowrap;
+}
+.slate .category-icon {
+  width: 40px;
+}
+.slate .dialgauge-title {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 100;
+  fill: #c8c8c8;
+  stroke: #c8c8c8;
+}
+.slate .dialgauge-value {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 100;
+  fill: #c8c8c8;
+  stroke: #c8c8c8;
+}
+.slate .dialgauge-unit {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 100;
+  fill: #c8c8c8;
+  stroke: #c8c8c8;
 }

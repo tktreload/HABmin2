@@ -5,14 +5,17 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="shortcut icon" href="assets/favicon.ico"/>
+
+
     
 
     <!-- compiled CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/HABmin2-paper-0.0.7.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/HABmin2-paper-0.0.10.css"/>
     
-    <link rel="stylesheet" type="text/css" href="assets/HABmin2-slate-0.0.7.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/HABmin2-slate-0.0.10.css"/>
     
-    <link rel="stylesheet" type="text/css" href="assets/HABmin2-yeti-0.0.7.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/HABmin2-yeti-0.0.10.css"/>
     
     <link rel="stylesheet" type="text/css" href="assets/angular-growl.css"/>
     
@@ -74,6 +77,8 @@
     
     <script type="text/javascript" src="vendor/moment/moment.js"></script>
     
+    <script type="text/javascript" src="vendor/moment/locale/fr.js"></script>
+    
     <script type="text/javascript" src="vendor/angular-blockly/build/angular-blockly.js"></script>
     
     <script type="text/javascript" src="vendor/angular-blockly/build/blockly_compressed.js"></script>
@@ -110,8 +115,6 @@
     
     <script type="text/javascript" src="vendor/fullcalendar/gcal.js"></script>
     
-    <script type="text/javascript" src="vendor/angular-timeago/src/timeAgo.js"></script>
-    
     <script type="text/javascript" src="vendor/vis/dist/vis.js"></script>
     
     <script type="text/javascript" src="vendor/angular-base64/angular-base64.js"></script>
@@ -140,11 +143,25 @@
     
     <script type="text/javascript" src="src/app/binding/zwave.js"></script>
     
-    <script type="text/javascript" src="src/app/dashboard/chart.js"></script>
+    <script type="text/javascript" src="src/app/chart/chart.js"></script>
     
-    <script type="text/javascript" src="src/app/dashboard/chartSave.js"></script>
+    <script type="text/javascript" src="src/app/chart/chartSave.js"></script>
+    
+    <script type="text/javascript" src="src/app/configuration/configParameter.js"></script>
+    
+    <script type="text/javascript" src="src/app/configuration/thingConfig.js"></script>
+    
+    <script type="text/javascript" src="src/app/configuration/thingDiscovery.js"></script>
     
     <script type="text/javascript" src="src/app/dashboard/dashboard.js"></script>
+    
+    <script type="text/javascript" src="src/app/dashboard/dashboardChartWidget.js"></script>
+    
+    <script type="text/javascript" src="src/app/dashboard/dashboardGaugeWidget.js"></script>
+    
+    <script type="text/javascript" src="src/app/dashboard/dashboardProperties.js"></script>
+    
+    <script type="text/javascript" src="src/app/dashboard/dashboardWidgetProperties.js"></script>
     
     <script type="text/javascript" src="src/app/home/home.js"></script>
     
@@ -152,19 +169,35 @@
     
     <script type="text/javascript" src="src/app/models/chartModel.js"></script>
     
+    <script type="text/javascript" src="src/app/models/dashboardModel.js"></script>
+    
+    <script type="text/javascript" src="src/app/models/designerModel.js"></script>
+    
+    <script type="text/javascript" src="src/app/models/eventsModel.js"></script>
+    
     <script type="text/javascript" src="src/app/models/iconModel.js"></script>
+    
+    <script type="text/javascript" src="src/app/models/inboxModel.js"></script>
     
     <script type="text/javascript" src="src/app/models/itemModel.js"></script>
     
     <script type="text/javascript" src="src/app/models/persistenceModel.js"></script>
     
+    <script type="text/javascript" src="src/app/models/restModel.js"></script>
+    
     <script type="text/javascript" src="src/app/models/ruleModel.js"></script>
     
     <script type="text/javascript" src="src/app/models/sitemapModel.js"></script>
     
+    <script type="text/javascript" src="src/app/models/thingModel.js"></script>
+    
     <script type="text/javascript" src="src/app/models/userModel.js"></script>
     
+    <script type="text/javascript" src="src/app/models/zwaveModel.js"></script>
+    
     <script type="text/javascript" src="src/app/sitemap/sitemap.js"></script>
+    
+    <script type="text/javascript" src="src/app/sitemap/sitemapChartWidget.js"></script>
     
     <script type="text/javascript" src="src/app/sitemap/sitemapFrameWidget.js"></script>
     
@@ -202,15 +235,15 @@
     
 
     <script type="text/javascript">
-        document.HABminVersionString = "0.0.7";
-        document.HABminVersionDate = "2015-02-10T11:35:00";
+        document.HABminVersionString = "0.0.10";
+        document.HABminVersionDate = "2015-03-29T13:24:55";
 
         
-        <!-- Handle application startup within browser -->
-        document.HABminCordova = false;
-        $(document).ready(function() {
-            angular.bootstrap(document, ['HABmin']);
-        });
+            <!-- Handle application startup within browser -->
+            document.HABminCordova = false;
+            $(document).ready(function () {
+                angular.bootstrap(document, ['HABmin']);
+            });
         
     </script>
 </head>
@@ -227,11 +260,12 @@
                 <div class="panel-body">
                     <form name="form">
                         <!-- SERVER -->
-                        <div class="form-group" ng-show="showServer" ng-class="{'has-error': form.server.$invalid && submitted}">
+                        <div class="form-group" ng-show="showServer"
+                             ng-class="{'has-error': form.server.$invalid && submitted}">
                             <label for="server" class="control-label"><span i18n="habmin.loginServer"></span></label>
 
                             <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-user"></span></span>
+                                <span class="input-group-addon"><span class="fa fa-desktop"></span></span>
                                 <input
                                         type="text"
                                         class="form-control"
@@ -264,7 +298,8 @@
 
                         <!-- PASSWORD -->
                         <div class="form-group" ng-class="{'has-error': form.password.$invalid && submitted}">
-                            <label for="password" class="control-label"><span i18n="habmin.loginPassword"></span></label>
+                            <label for="password" class="control-label"><span
+                                    i18n="habmin.loginPassword"></span></label>
 
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-lock"></span></span>
@@ -279,13 +314,16 @@
                                         required>
                             </div>
                         </div>
-                        <button type="submit" ng-click="submit()" class="btn btn-primary btn-block"><span i18n="habmin.loginSubmit"></span></button>
+                        <button type="submit" ng-click="submit()" class="btn btn-primary btn-block"><span
+                                i18n="habmin.loginSubmit"></span></button>
                     </form>
                 </div>
                 <div class="panel-footer">
-                    <div class="text-center"><small>
-                        <span i18n="habmin.loginVersion"></span>&nbsp;<span>{{HABminVersion}}</span>,&nbsp;<span>{{HABminDate}}</span>
-                    </small></div>
+                    <div class="text-center">
+                        <small>
+                            <span i18n="habmin.loginVersion"></span>&nbsp;<span>{{HABminVersion}}</span>,&nbsp;<span>{{HABminDate}}</span>
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -299,6 +337,7 @@
                 <button type="button" class="navbar-toggle pull-left"
                         sidepanel-toggle="side,main" ng-show="sidepanelEnabled">
                     <span class="sr-only">Toggle panels</span>
+
                     <div class="nav-expand-bar">
                         <span class="icon-bar nav-expand-bar"></span>
                         <span class="icon-bar nav-expand-bar"></span>
@@ -335,15 +374,24 @@
                                     <span i18n="habmin.mainCharts"></span>
                                 </a>
                             </li>
+                            <li ng-if="dashboards" role="presentation" class="divider"></li>
+                            <li ng-repeat="dashboard in dashboards">
+                                <a ui-sref="dashboard({dashboardId:'{{dashboard.id}}'})"
+                                   ui-sref-opts="{ reload: true }">
+                                    <habmin-icon class="fa fa-fw" icon="{{dashboard.icon}}"></habmin-icon>
+                                    <span>{{dashboard.name}}</span>
+                                </a>
+                            </li>
                             <li role="presentation" class="divider"></li>
-                            <li ui-sref="dashboard">
+                            <li ui-sref="dashboard({dashboardId:''})"
+                                ui-sref-opts="{ reload: true }">
                                 <a>
                                     <span class="fa fa-fw fa-th"></span>
                                     <span i18n="habmin.mainDashboardNew"></span>
                                 </a>
                             </li>
-                            <li ui-sref="dashboard" ng-show="currentState.indexOf('dashboard')==0">
-                                <a>
+                            <li ng-show="currentState.indexOf('dashboard')==0">
+                                <a ng-click="dashboardEdit()">
                                     <span class="fa fa-fw fa-magic"></span>
                                     <span i18n="habmin.mainDashboardEdit"></span>
                                 </a>
@@ -369,6 +417,12 @@
                                 <a>
                                     <span class="fa fa-fw fa-clock-o"></span>
                                     <span i18n="habmin.mainScheduler"></span>
+                                </a>
+                            </li>
+                            <li ui-sref="scheduler" ng-disabled="true">
+                                <a>
+                                    <span class="fa fa-fw fa-at"></span>
+                                    <span i18n="habmin.mainNotifications"></span>
                                 </a>
                             </li>
                         </ul>
@@ -413,6 +467,18 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a ui-sref="things">
+                                    <span class="fa fa-fw fa-share-alt"></span>
+                                    <span i18n="habmin.mainThings"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="discovery">
+                                    <span class="fa fa-fw fa-paper-plane"></span>
+                                    <span i18n="habmin.mainDiscovery"></span>
+                                </a>
+                            </li>
                             <li>
                                 <a ui-sref="rules">
                                     <span class="fa fa-fw fa-wifi"></span>
@@ -482,6 +548,17 @@
                             <span class="fa fa-fw fa-user"></span>
                             <span class="hidden-sm" i18n="habmin.mainLogin"></span>
                         </a>
+                    </li>
+
+                    <!-- NOTIFICATION AREA -->
+                    <li class="navbar-notification">
+                        <p class="no-padding" ng-if="notificationCnt"
+                           popup-show="templates/notifications/summary.tpl.html" popup-placement="left"
+                           popup-class="zwave-logreader-popover">
+                            <span class="badge">
+                                {{notificationCnt}}
+                            </span>
+                        </p>
                     </li>
                 </ul>
             </div>

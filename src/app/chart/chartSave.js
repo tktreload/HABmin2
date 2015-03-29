@@ -5,7 +5,7 @@
  * This software is copyright of Chris Jackson under the GPL license.
  * Note that this licence may be changed at a later date.
  *
- * (c) 2014 Chris Jackson (chris@cd-jackson.com)
+ * (c) 2014-2015 Chris Jackson (chris@cd-jackson.com)
  */
 angular.module('HABmin.chartSave', [
     'ui.bootstrap',
@@ -17,15 +17,25 @@ angular.module('HABmin.chartSave', [
     'HABmin.userModel'
 ])
     .service('ChartSave',
-    function ($modal, $rootScope, ChartListModel, growl, locale, UserService) {
+    function ($modal, $rootScope, ChartModel, growl, locale, UserService) {
+        /**
+         * Edits a chart given it's chart id.
+         * First it loads the chart from the server, then calls the editor
+         * @param chartId
+         */
         this.editChart = function (chartId) {
             var me = this;
 
-            ChartListModel.getChart(chartId).then(function (chart) {
+            ChartModel.getChart(chartId).then(function (chart) {
                 me.saveChart(chart);
             });
         };
 
+        /**
+         * Edits the chart properties
+         * @param chart
+         * @returns {*}
+         */
         this.saveChart = function (chart) {
             var scope = $rootScope.$new();
             scope.showTab = 0;
@@ -33,8 +43,14 @@ angular.module('HABmin.chartSave', [
                 name: chart.name,
                 title: chart.title,
                 icon: chart.icon,
-                period: chart.period
+                period: chart.period,
+                legend: chart.legend
             };
+
+            if(scope.general.legend != 'false' && scope.general.legend != false) {
+                scope.general.legend = 'true';
+            }
+
             scope.leftaxis = {};
             scope.rightaxis = {};
             if (chart.axis !== undefined) {
@@ -89,11 +105,17 @@ angular.module('HABmin.chartSave', [
                     itemModel.repeatTime = Number(item.repeatTime);
                     itemModel.points = Number(item.points);
                     itemModel.pointsSize = Number(item.pointsSize);
+                    itemModel.chart = item.chart;
 
                     scope.items.push(itemModel);
                 });
             }
 
+            /**
+             * Controller functions get called when the modal closes
+             * @param $scope
+             * @param $modalInstance
+             */
             var controller = function ($scope, $modalInstance) {
                 $scope.ok = function (result) {
                     var query = {};
@@ -107,6 +129,7 @@ angular.module('HABmin.chartSave', [
                     }
                     query.icon = scope.general.icon;
                     query.period = scope.general.period;
+                    query.legend = scope.general.legend;
 
                     query.axis = [];
                     if (scope.leftaxis !== undefined) {
@@ -162,34 +185,37 @@ angular.module('HABmin.chartSave', [
                             var newItem = {};
 
                             newItem.item = item.item;
-                            if (item.label !== undefined) {
+                            if (item.label != null) {
                                 newItem.label = item.label;
                             }
-                            if (item.lineColor !== undefined) {
+                            if (item.lineColor != null) {
                                 newItem.lineColor = item.lineColor;
                             }
-                            if (item.lineStyle !== undefined) {
+                            if (item.chart != null) {
+                                newItem.chart = item.chart;
+                            }
+                            if (item.lineStyle != null) {
                                 newItem.lineStyle = item.lineStyle;
                             }
-                            if (item.lineWidth !== undefined) {
+                            if (!isNaN(item.lineWidth)) {
                                 newItem.lineWidth = item.lineWidth;
                             }
                             if (!isNaN(item.repeatTime)) {
                                 newItem.repeatTime = item.repeatTime;
                             }
-                            if (item.axis !== undefined) {
+                            if (item.axis != null) {
                                 newItem.axis = item.axis;
                             }
-                            if (item.fill !== undefined) {
+                            if (item.fill != null) {
                                 newItem.fill = item.fill;
                             }
-                            if (item.fillColor !== undefined) {
+                            if (item.fillColor != null) {
                                 newItem.fillColor = item.fillColor;
                             }
-                            if (item.points !== undefined) {
+                            if (!isNaN(item.points)) {
                                 newItem.points = item.points;
                             }
-                            if (item.pointsSize !== undefined) {
+                            if (!isNaN(item.pointsSize)) {
                                 newItem.pointsSize = item.pointsSize;
                             }
 
@@ -199,13 +225,13 @@ angular.module('HABmin.chartSave', [
 
                     console.log("Saving query", query);
 
-                    ChartListModel.putChart(query).then(
+                    ChartModel.putChart(query).then(
                         function () {
-                            growl.success(locale.getString('habmin.chartSaveSuccess', query.name));
+                            growl.success(locale.getString('habmin.chartSaveSuccess', {chartName: query.name}));
                         },
                         function (error) {
-                            growl.warning(locale.getString('habmin.chartSaveError', query.name, error));
-
+                            growl.warning(locale.getString('habmin.chartSaveError',
+                                {chartName: query.name, error: error}));
                         });
 
                     $modalInstance.close(result);
@@ -220,7 +246,7 @@ angular.module('HABmin.chartSave', [
                 keyboard: true,
                 modalFade: true,
                 size: 'lg',
-                templateUrl: 'dashboard/chartSave.tpl.html',
+                templateUrl: 'chart/chartSave.tpl.html',
                 controller: controller,
                 windowClass: UserService.getTheme(),
                 scope: scope
@@ -234,7 +260,7 @@ angular.module('HABmin.chartSave', [
             scope: { // Isolate scope
                 model: '='
             },
-            templateUrl: 'dashboard/chartSaveGeneral.tpl.html',
+            templateUrl: 'chart/chartSaveGeneral.tpl.html',
             link: function ($scope, $element, $state) {
             }
         };
@@ -246,7 +272,7 @@ angular.module('HABmin.chartSave', [
             scope: { // Isolate scope
                 model: '='
             },
-            templateUrl: 'dashboard/chartSaveItem.tpl.html',
+            templateUrl: 'chart/chartSaveItem.tpl.html',
             link: function ($scope, $element, $state) {
             }
         };
@@ -258,7 +284,7 @@ angular.module('HABmin.chartSave', [
             scope: { // Isolate scope
                 model: '='
             },
-            templateUrl: 'dashboard/chartSaveAxis.tpl.html',
+            templateUrl: 'chart/chartSaveAxis.tpl.html',
             link: function ($scope, $element, $state) {
             }
         };
@@ -271,16 +297,16 @@ angular.module('HABmin.chartSave', [
                 ngModel: '='
             },
             template: '' +
-                '<div class="line-selector dropdown"><a class="dropdown-toggle" data-toggle="dropdown">' +
-                '<span class="selected" ng-bind-html="getSelected()">' +
-                '</span>' +
-                '</a>' +
-                '<ul class="dropdown-menu" role="menu">' +
-                '<li ng-repeat="choice in styles"><a ng-click="setStyle(choice)">' +
-                '<span ng-bind-html="getStyle(choice)"></span>' +
-                '</a></li>' +
-                '</ul>' +
-                '</div>',
+            '<div class="line-selector dropdown"><a class="dropdown-toggle" data-toggle="dropdown">' +
+            '<span class="selected" ng-bind-html="getSelected()">' +
+            '</span>' +
+            '</a>' +
+            '<ul class="dropdown-menu" role="menu">' +
+            '<li ng-repeat="choice in styles"><a ng-click="setStyle(choice)">' +
+            '<span ng-bind-html="getStyle(choice)"></span>' +
+            '</a></li>' +
+            '</ul>' +
+            '</div>',
             link: function ($scope, $element, $state) {
                 // Define the array of line styles
                 $scope.styles = [
@@ -313,7 +339,7 @@ angular.module('HABmin.chartSave', [
                 // Return a trusted HTML for the styles
                 $scope.getStyle = function (style) {
                     return $sce.trustAsHtml('<svg width="100%" height="10px"><line x1="0" x2="426" y1="5" y2="5" stroke-width="2" stroke-linecap="butt" stroke-dasharray="' +
-                        style.array.join(",") + '"/></svg>');
+                    style.array.join(",") + '"/></svg>');
                 };
 
                 // Sets the style when the user selects from the menu
@@ -325,7 +351,7 @@ angular.module('HABmin.chartSave', [
                 // Gets the selected style as trusted HTML
                 $scope.getSelected = function () {
                     return $sce.trustAsHtml('<svg width="100%" height="10px"><line x1="0" x2="426" y1="5" y2="5" stroke-width="2" stroke-linecap="butt" stroke-dasharray="' +
-                        $scope.selected.array.join(",") + '"/></svg>');
+                    $scope.selected.array.join(",") + '"/></svg>');
                 };
             }
         };
