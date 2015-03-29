@@ -201,7 +201,7 @@ angular.module('HABmin.userModel', [
 
     .controller('LoginController', function ($scope, $http, $base64, authService, UserService) {
         $scope.user = localStorage.getItem('Auth-user');
-        if ($scope.user == null) {
+        if ($scope.user == null || $scope.user == 'null') {
             $scope.user = "";
         }
         $scope.period = localStorage.getItem('Auth-period');
