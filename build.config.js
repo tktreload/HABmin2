@@ -85,10 +85,9 @@ module.exports = {
             'vendor/angular-pick-a-color/src/angular-pick-a-color.js',
             'vendor/moment/moment.js',
             'vendor/moment/locale/fr.js',
-            'vendor/angular-blockly/build/angular-blockly.js',
-            'vendor/angular-blockly/build/blockly_compressed.js',
-            'vendor/angular-blockly/build/blocks_compressed.js',
-            'vendor/angular-blockly/build/en.js',
+            'vendor/openhab-blockly/blockly_compressed.js',
+            'vendor/openhab-blockly/blocks_compressed.js',
+            'vendor/openhab-blockly/en.js',
             'vendor/ace-builds/src-min-noconflict/ace.js',
             'vendor/ace-builds/src-min-noconflict/theme-tomorrow.js',
             'vendor/ace-builds/src-min-noconflict/theme-tomorrow_night_bright.js',
@@ -111,7 +110,8 @@ module.exports = {
             'vendor/angular-rt-popup/dist/angular-rt-popup.js',
             'vendor/angular-ui-select/dist/select.js',
             'vendor/angular-input-modified/dist/angular-input-modified.js',
-            'vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js'
+            'vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
+            'vendor/openhab-blockly/msg/js/en.js'
         ],
         css: [
             'vendor/angular-growl-v2/build/angular-growl.css',
@@ -130,7 +130,7 @@ module.exports = {
             'vendor/fontawesome/fonts/*',
             'vendor/weather-icons/font/*',
             'vendor/bootstrap/fonts/*',
-            'vendor/angular-blockly/media/*',
+            'vendor/openhab-blockly/media/*',
             'vendor/flag-icon-css/flags/4x3/de.svg',
             'vendor/flag-icon-css/flags/4x3/fr.svg',
             'vendor/flag-icon-css/flags/4x3/gb.svg',

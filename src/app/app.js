@@ -40,7 +40,6 @@ angular.module('HABmin', [
     'ngLocalize.Events',
     'angular-growl',
     'pickAColor',
-    'angular-blockly',
     'Binding.zwave',
     'SidepanelService',
     'ngAnimate',
@@ -71,7 +70,7 @@ angular.module('HABmin', [
         'fr': 'fr-FR'
     })
 
-    .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider, pickAColorProvider, ngBlocklyProvider, uiSelectConfig) {
+    .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider, pickAColorProvider, uiSelectConfig) {
         $urlRouterProvider.otherwise('/home');
         growlProvider.globalTimeToLive({
             success: 2000,
@@ -87,54 +86,6 @@ angular.module('HABmin', [
         });
 
         uiSelectConfig.theme = 'bootstrap';
-
-        ngBlocklyProvider.setOptions({
-            path: "assets/",
-            trashcan: true,
-            toolbox: [
-                {
-                    name: "Logic",
-                    blocks: [
-                        {type: "logic_compare"},
-                        {type: "logic_operation"},
-                        {type: "logic_negate"},
-                        {type: "controls_if"},
-                        {type: "openhab_time"},
-                        {type: "openhab_iftimer"},
-                        {type: "logic_boolean"}
-                    ]
-                },
-                {
-                    name: "Math",
-                    blocks: [
-                        {type: "math_number"},
-                        {type: "math_arithmetic"},
-                        {type: "math_round"},
-                        {type: "math_constrain"},
-                        {type: "math_constant"},
-                        {type: "math_trig"},
-                        {type: "math_number_property"},
-                        {type: "math_change"}
-                    ]
-                },
-                {
-                    name: "Items",
-                    blocks: [
-                        {type: "openhab_itemset"},
-                        {type: "openhab_itemget"},
-                        {type: "openhab_itemcmd"},
-                        {type: "openhab_persistence_get"},
-                        {type: "variables_set"},
-                        {type: "variables_get"},
-                        {type: "openhab_constantget"},
-                        {type: "openhab_constantset"},
-                        {type: "openhab_state_onoff"},
-                        {type: "openhab_state_openclosed"},
-                        {type: "text"}
-                    ]
-                }
-            ]
-        });
     })
 
     .run([

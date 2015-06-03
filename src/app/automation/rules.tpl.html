@@ -19,7 +19,7 @@
         </div>
 
         <!-- Body -->
-        <div class="list-group" resize-panel>
+        <div class="list-group habmin-list" resize-panel>
             <div ng-repeat="choice in blockRules">
                 <a role="presentation" ng-class="{'list-group-item':true, 'active':choice==selectedRule}"
                    ng-confirm-click="selectBlock(choice)" ng-confirm-if="$parent.isDirty"

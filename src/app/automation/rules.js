@@ -13,7 +13,7 @@ angular.module('HABmin.rules', [
     'ui.ace',
     'ngLocalize',
     'angular-growl',
-    'angular-blockly',
+    'openhabBlockly',
     'HABmin.ruleModel',
     'HABmin.designerModel',
     'HABmin.userModel',
@@ -41,7 +41,7 @@ angular.module('HABmin.rules', [
     })
 
     .controller('AutomationRuleCtrl',
-    function AutomationRuleCtrl($scope, locale, growl, RuleModel, DesignerModel, UserService, Blockly, $timeout) {
+    function AutomationRuleCtrl($scope, locale, growl, RuleModel, DesignerModel, UserService, openhabBlockly, $timeout) {
         var newDesign = [
             {
                 type: 'openhab_rule',
@@ -130,14 +130,14 @@ angular.module('HABmin.rules', [
         var onChangeWrapper = null;
         $scope.$on('$destroy', function () {
             // Make sure that the callback is destroyed too
-//            Blockly.offChange(onChangeWrapper);
+//            openhabBlockly.offChange(onChangeWrapper);
 //            onChangeWrapper = null;
         });
 
         function handleDirtyNotification() {
             if (onChangeWrapper == null) {
                 onChangeWrapper = true;
-                Blockly.onChange(function () {
+                openhabBlockly.onChange(function () {
                     $scope.isDirty = true;
                     $scope.$apply();
                 });
@@ -179,7 +179,7 @@ angular.module('HABmin.rules', [
                         rule.block = newDesign;
                     }
                     $scope.codeEditor = rule.source;
-                    Blockly.setWorkspace({block: rule.block});
+                    openhabBlockly.setWorkspace({block: rule.block});
                     $scope.isDirty = false;
                 },
                 function (reason) {
@@ -192,7 +192,7 @@ angular.module('HABmin.rules', [
         $scope.newRule = function () {
             handleDirtyNotification();
             $scope.codeEditor = "";
-            Blockly.setWorkspace({block: newDesign});
+            openhabBlockly.setWorkspace({block: newDesign});
             $scope.isDirty = false;
             $scope.selectedRule = null;
             restoreRule = {block: newDesign};
@@ -201,8 +201,8 @@ angular.module('HABmin.rules', [
         $scope.saveRule = function () {
             var rule = {};
             // Read the blocks. If it's not defined, then set to a new rule
-            if (Blockly.getWorkspace() != null) {
-                rule.block = Blockly.getWorkspace().block[0];
+            if (openhabBlockly.getWorkspace() != null) {
+                rule.block = openhabBlockly.getWorkspace().block[0];
             }
             else {
                 rule.block = newDesign;
@@ -227,13 +227,13 @@ angular.module('HABmin.rules', [
                 return;
             }
             $scope.codeEditor = restoreRule.source;
-            Blockly.setWorkspace(restoreRule);
+            openhabBlockly.setWorkspace(restoreRule);
             $scope.isDirty = false;
         };
 
         $scope.deleteRule = function () {
             DesignerModel.deleteRule($scope.selectedRule.id).then(function () {
-                Blockly.clearWorkspace();
+                openhabBlockly.clearWorkspace();
                 $scope.codeEditor = "";
                 $scope.selectedRule = null;
                 restoreRule = null;
