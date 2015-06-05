@@ -1,9 +1,11 @@
 /**
- * blockly directive for AngularJS
+ * HABmin - Home Automation User and Administration Interface
+ * Designed for openHAB (www.openhab.com)
  *
- * Author: Chris Jackson
+ * This software is copyright of Chris Jackson under the GPL license.
+ * Note that this licence may be changed at a later date.
  *
- * License: MIT
+ * (c) 2014-2015 Chris Jackson (chris@cd-jackson.com)
  */
 angular.module("openhabBlockly", [])
     .provider("openhabBlockly", function () {
@@ -35,7 +37,7 @@ angular.module("openhabBlockly", [])
             if (Blockly.getMainWorkspace() != null && Blockly.getMainWorkspace().topBlocks_.length != 0) {
                 Blockly.getMainWorkspace().clear();
             }
-            Blockly.Json.setWorkspace(Blockly.getMainWorkspace(), workspace);
+            Blockly.JSON.setWorkspace(Blockly.getMainWorkspace(), workspace);
 
             // Blockly sends an immediate change - we want to filter this out
             me.holdoffChanges = true;
@@ -51,15 +53,15 @@ angular.module("openhabBlockly", [])
         };
 
         this.getWorkspace = function () {
-            return Blockly.Json.getWorkspace(Blockly.getMainWorkspace());
+            return Blockly.JSON.workspaceToObject(Blockly.getMainWorkspace());
         };
 
         this.setToolbox = function (toolbox) {
-            return Blockly.Json.getWorkspace(Blockly.getMainWorkspace());
+//            return Blockly.JSON.getWorkspace(Blockly.getMainWorkspace());
         };
 
         this.onChange = function (callback) {
-            $(Blockly.mainWorkspace.getCanvas()).bind("blocklyWorkspaceChange", function () {
+            Blockly.addChangeListener(function () {
                 if (me.holdoffChanges === false) {
                     // Send a notification
                     callback();
@@ -79,7 +81,6 @@ angular.module("openhabBlockly", [])
             },
             template: '<div style="height:100%" class="ng-blockly"></div>',
             link: function ($scope, element, attrs) {
-//                var options = openhabBlockly.getOptions();
                 var options = {
                     pathToMedia: 'assets/',
                     sounds: false,
@@ -88,7 +89,7 @@ angular.module("openhabBlockly", [])
                     '<category name="Control">' +
                     '<block type="controls_if"></block>' +
                     '</category>' +
-                    '<category name="Logic">' +
+                    '<category name="Logic" class="toolbox-logic">' +
                     '<block type="controls_if"></block>' +
                     '</category>' +
                     '<sep></sep>' +
@@ -96,6 +97,11 @@ angular.module("openhabBlockly", [])
                     '</xml>'
                 };
                 Blockly.inject(element.children()[0], options);
+
+                $scope.$on('$destroy', function() {
+                    console.log("destroy");
+                    Blockly.getMainWorkspace().dispose();
+                });
             }
         };
     });

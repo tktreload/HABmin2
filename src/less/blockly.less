@@ -3,7 +3,7 @@
 
 .blocklySvg {
   background-color: @panel-bg;
-  border: 1px solid @panel-default-border;
+  border: none;
   border-radius: @panel-border-radius;
   overflow: hidden;  /* IE overflows by default. */
 }
@@ -203,7 +203,7 @@
 }
 
 .blocklyFlyoutBackground {
-  fill: @dropdown-bg;
+  fill: @navbar-inverse-bg;
   fill-opacity: .8;
 }
 
@@ -290,6 +290,9 @@
   height: 22px;
   padding-right: 1em;
   white-space: nowrap;
+
+  ///
+  border-bottom: 2px solid transparent;
 }
 
 .blocklyToolboxDiv[dir="RTL"] .blocklyTreeRow {
@@ -304,7 +307,8 @@
 
 .blocklyTreeIcon {
   height: 16px;
-  width: 16px;
+  width: 8px;
+  border-left: 7px solid transparent;
   vertical-align: middle;
   background-image: url(@blockly-sprites);
 }
@@ -344,6 +348,8 @@
   font-size: @font-size-base;
   padding: 0 3px;
   vertical-align: middle;
+  font-weight: 300;
+  color: @navbar-default-color;
 }
 
 .blocklyTreeSelected  {
@@ -604,3 +610,39 @@
   margin: 4px 0;
   padding: 0;
 }
+
+#\:1 {
+  .blocklyTreeIcon {
+    border-color: blue;
+  }
+  .blocklyTreeRow:hover {
+    border-color: blue;
+  }
+}
+
+#\:2 {
+  .blocklyTreeIcon {
+    border-color: green;
+  }
+  .blocklyTreeRow:hover {
+    border-color: green;
+  }
+  .blocklyTreeSelected {
+    border-color: green;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
