@@ -393,6 +393,15 @@ angular.module('HABmin', [
         }, 100);
 
         EventModel.listen();
+
+        // Load blockly localisation if Blockly is loaded
+        if(Blockly != null) {
+            locale.ready("blockly").then(
+                function () {
+                    Blockly.Msg = locale.getBundle("blockly");
+                }
+            );
+        }
     })
 
     .filter('orderObjectBy', function () {

@@ -82,8 +82,8 @@
 .blocklyText {
   cursor: default;
   font-family: @font-family-sans-serif;
-  font-size: 11pt;
-  fill: @text-color;
+  font-size: @font-size-base;
+  fill: @body-bg;
 }
 
 .blocklyNonEditableText>text {
@@ -92,13 +92,13 @@
 
 .blocklyNonEditableText>rect,
 .blocklyEditableText>rect {
-  fill: @text-color;
+  fill: @body-bg;
   fill-opacity: .6;
 }
 
 .blocklyNonEditableText>text,
 .blocklyEditableText>text {
-  fill: #000;
+  fill: @text-color;
 }
 
 .blocklyEditableText:hover>rect {
@@ -193,7 +193,8 @@
   font-size: 11pt;
   border: none;
   outline: none;
-  width: 100%
+  width: 100%;
+  fill: green;
 }
 
 .blocklyMutatorBackground {
@@ -310,7 +311,7 @@
   width: 8px;
   border-left: 7px solid transparent;
   vertical-align: middle;
-  background-image: url(@blockly-sprites);
+//  background-image: url(@blockly-sprites);
 }
 
 .blocklyTreeIconClosedLtr {
@@ -522,6 +523,7 @@
 .blocklyWidgetDiv .goog-menuitem-hover {
   background-color: @dropdown-link-hover-bg;
   color: @dropdown-link-hover-color;
+  border: none;
   /* Use an explicit top and bottom border so that the selection is visible',
    * in high contrast mode. */
   //  border-color: #d6e9f8;
@@ -611,16 +613,19 @@
   padding: 0;
 }
 
-#\:1 {
+#toolbox-blue {
   .blocklyTreeIcon {
     border-color: blue;
   }
   .blocklyTreeRow:hover {
     border-color: blue;
   }
+  .blocklyTreeSelected {
+    border-color: blue;
+  }
 }
 
-#\:2 {
+#toolbox-green {
   .blocklyTreeIcon {
     border-color: green;
   }
@@ -631,17 +636,6 @@
     border-color: green;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

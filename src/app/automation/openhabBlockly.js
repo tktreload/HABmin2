@@ -86,11 +86,34 @@ angular.module("openhabBlockly", [])
                     sounds: false,
                     trashcan: true,
                     toolbox: '<xml>' +
-                    '<category name="Control">' +
+                    '<category name="Logic" id="toolbox-green">' +
                     '<block type="controls_if"></block>' +
+                    '<block type="logic_compare"></block>' +
+                    '<block type="logic_operation"></block>' +
+                    '<block type="logic_negate"></block>' +
+                    '<block type="logic_ternary"></block>' +
+                    '<block type="logic_boolean"></block>' +
                     '</category>' +
-                    '<category name="Logic" class="toolbox-logic">' +
-                    '<block type="controls_if"></block>' +
+                    '<category name="Loops" id="toolbox-blue">' +
+                    '<block type="controls_repeat_ext">' +
+                    '<value name="TIMES">' +
+                    '<block type="math_number">' +
+                    '<field name="NUM">10</field>' +
+                    '</block>' +
+                    '</value>' +
+                    '</block>' +
+                    '</category>' +
+                    '<category name="Math" id="toolbox-blue1">' +
+                    '<block type="math_number"></block>' +
+                    '<block type="math_arithmetic"></block>' +
+                    '<block type="math_constrain"></block>' +
+                    '<block type="math_constant"></block>' +
+                    '<block type="math_trig"></block>' +
+                    '<block type="math_number_property"></block>' +
+                    '<block type="math_change"></block>' +
+                    '</category>' +
+                    '<category name="OpenHAB">' +
+                    '<block type="openhab_rule"></block>' +
                     '</category>' +
                     '<sep></sep>' +
                     '<category name="Variables" custom="VARIABLE"></category>' +
@@ -98,7 +121,7 @@ angular.module("openhabBlockly", [])
                 };
                 Blockly.inject(element.children()[0], options);
 
-                $scope.$on('$destroy', function() {
+                $scope.$on('$destroy', function () {
                     console.log("destroy");
                     Blockly.getMainWorkspace().dispose();
                 });
