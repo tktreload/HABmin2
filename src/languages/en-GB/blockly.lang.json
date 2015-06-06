@@ -1,4 +1,8 @@
 {
+  "TOOLBOX_MATH": "Math",
+  "TOOLBOX_LOOPS": "Loops",
+  "TOOLBOX_LOGIC": "Logic",
+
   "ADD_COMMENT": "Add Comment",
   "CHANGE_VALUE_TITLE": "Change value:",
   "COLLAPSE_ALL": "Collapse Blocks",

@@ -154,15 +154,16 @@ Blockly.Blocks['openhab_rule'] = {
         this.setHelpUrl("HELP");
         this.setColour(45);
         this.appendDummyInput()
-            .appendField("Rule")
+            .appendField("Rule name")
             .appendField(new Blockly.FieldTextInput(name,
                 Blockly.Procedures.rename), 'NAME')
             .appendField('', 'PARAMS');
         this.appendStatementInput('CONSTANT')
-//            .setNextStatement(true,"Constant")
-            .appendField("Definitions");
+            .appendField("Configuration");
+        this.appendStatementInput('CONSTANT')
+            .appendField("If");
         this.appendStatementInput('STACK')
-            .appendField("Rule");
+            .appendField("Then");
         this.setTooltip("Rule Tooltip");
     }
 };

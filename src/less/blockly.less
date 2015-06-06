@@ -613,28 +613,31 @@
   padding: 0;
 }
 
-#toolbox-blue {
+@blockly_hsv_sat: 45%;
+@blockly_hsv_val: 65%;
+
+.blockly-menu-colour(@hue) {
   .blocklyTreeIcon {
-    border-color: blue;
+    border-color: hsl(@hue, @blockly_hsv_sat, @blockly_hsv_val);
   }
   .blocklyTreeRow:hover {
-    border-color: blue;
+    border-color: hsl(@hue, @blockly_hsv_sat, @blockly_hsv_val);
   }
   .blocklyTreeSelected {
-    border-color: blue;
+    border-color: hsl(@hue, @blockly_hsv_sat, @blockly_hsv_val);
   }
 }
 
-#toolbox-green {
-  .blocklyTreeIcon {
-    border-color: green;
-  }
-  .blocklyTreeRow:hover {
-    border-color: green;
-  }
-  .blocklyTreeSelected {
-    border-color: green;
-  }
+#toolbox-logic {
+  .blockly-menu-colour(210)
+}
+
+#toolbox-loops {
+  .blockly-menu-colour(120)
+}
+
+#toolbox-math {
+  .blockly-menu-colour(230)
 }
 
 

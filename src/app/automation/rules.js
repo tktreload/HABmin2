@@ -10,7 +10,6 @@
 angular.module('HABmin.rules', [
     'ui.router',
     'ui.bootstrap',
-    'ui.ace',
     'ngLocalize',
     'angular-growl',
     'openhabBlockly',
@@ -41,7 +40,7 @@ angular.module('HABmin.rules', [
     })
 
     .controller('AutomationRuleCtrl',
-    function AutomationRuleCtrl($scope, locale, growl, RuleModel, DesignerModel, UserService, openhabBlockly, $timeout) {
+    function AutomationRuleCtrl($scope, locale, growl, DesignerModel, UserService, openhabBlockly, $timeout) {
         var newDesign = [
             {
                 type: 'openhab_rule',
@@ -54,73 +53,27 @@ angular.module('HABmin.rules', [
         ];
 
         $scope.blockRules = [];
-        $scope.codeRules = [];
         $scope.rulesTotal = -1;
-        $scope.editSource = false;
         $scope.isDirty = false;
         $scope.selectedRule = null;
-        $scope.aceOptions = {
-            useWrapMode: true,
-            showGutter: true,
-            theme: 'tomorrow',
-            mode: 'openhabrules',
-            onLoad: function (editor) {
-                $scope.aceEditor = editor;
-            }
-        };
-
-        // Align the Ace Editor theme with the Bootstrap theme
-        function setTheme(theme) {
-            console.log("Set Ace theme");
-            switch (UserService.getTheme()) {
-                case 'slate':
-                    $scope.aceOptions.theme = 'tomorrow_night_bright';
-                    break;
-                default:
-                    $scope.aceOptions.theme = 'tomorrow';
-                    break;
-            }
-        }
-
-        $scope.$on('habminTheme', function (event, theme) {
-            console.log("habminTheme event", theme);
-            setTheme(theme);
-        });
-
-        setTheme(UserService.getTheme());
 
         var restoreRule = null;
 
         // ------------------------------------------------
         // Load model data
 
-        // Load the list of rules
-        RuleModel.getList().then(
-            function (rules) {
-                if (rules != null) {
-                    $scope.codeRules = rules;
-                }
-                $scope.rulesTotal = $scope.blockRules.length + $scope.codeRules.length;
-            },
-            function (reason) {
-                // handle failure
-                growl.warning(locale.getString('habmin.ruleErrorLoadingRuleList'));
-                $scope.rulesTotal = $scope.blockRules.length + $scope.codeRules.length;
-            }
-        );
-
         // Load the list of designs
         DesignerModel.getList().then(
             function (rules) {
                 if (rules != null) {
                     $scope.blockRules = rules;
+                    $scope.rulesTotal = $scope.blockRules.length;
                 }
-                $scope.rulesTotal = $scope.blockRules.length + $scope.codeRules.length;
             },
             function (reason) {
                 // handle failure
                 growl.warning(locale.getString('habmin.ruleErrorLoadingRuleList'));
-                $scope.rulesTotal = $scope.blockRules.length + $scope.codeRules.length;
+                $scope.rulesTotal = 0;
             }
         );
 
@@ -144,30 +97,7 @@ angular.module('HABmin.rules', [
             }
         }
 
-        $scope.selectRule = function (rule) {
-            $scope.editSource = false;
-            $scope.selectedRule = rule;
-
-            handleDirtyNotification();
-
-            $scope.editSource = true;
-            RuleModel.getRule(rule.name).then(
-                function (rule) {
-                    restoreRule = rule;
-                    if (rule.block === undefined || rule.block === null) {
-                    }
-                    $scope.codeEditor = rule.source;
-                    $scope.isDirty = false;
-                },
-                function (reason) {
-                    // handle failure
-                    growl.warning(locale.getString('habmin.ruleErrorLoadingRule', [rule.name, reason]));
-                }
-            );
-        };
-
         $scope.selectBlock = function (rule) {
-            $scope.editSource = false;
             $scope.selectedRule = rule;
 
             handleDirtyNotification();
@@ -178,7 +108,6 @@ angular.module('HABmin.rules', [
                     if (rule.block === undefined || rule.block === null) {
                         rule.block = newDesign;
                     }
-                    $scope.codeEditor = rule.source;
                     openhabBlockly.setWorkspace({block: rule.block});
                     $scope.isDirty = false;
                 },
@@ -191,7 +120,6 @@ angular.module('HABmin.rules', [
 
         $scope.newRule = function () {
             handleDirtyNotification();
-            $scope.codeEditor = "";
             openhabBlockly.setWorkspace({block: newDesign});
             $scope.isDirty = false;
             $scope.selectedRule = null;
@@ -226,7 +154,6 @@ angular.module('HABmin.rules', [
             if (restoreRule == null) {
                 return;
             }
-            $scope.codeEditor = restoreRule.source;
             openhabBlockly.setWorkspace(restoreRule);
             $scope.isDirty = false;
         };
@@ -234,25 +161,11 @@ angular.module('HABmin.rules', [
         $scope.deleteRule = function () {
             DesignerModel.deleteRule($scope.selectedRule.id).then(function () {
                 openhabBlockly.clearWorkspace();
-                $scope.codeEditor = "";
                 $scope.selectedRule = null;
                 restoreRule = null;
                 $scope.isDirty = false;
             });
         };
-
-        $scope.showSource = function () {
-            // When switching from blocks to source, compile through the server
-            if ($scope.editSource === false) {
-            }
-
-            $scope.editSource = true;
-        };
-
-        $scope.showRule = function () {
-            $scope.editSource = false;
-        };
-
 
         // ------------------------------------------------
         // Private functions
@@ -261,49 +174,3 @@ angular.module('HABmin.rules', [
     })
 
 ;
-
-
-/*
-
- renameVariableCallback = function (prompt, value, callback) {
- $scope.dlg = {};
- $scope.dlg.title = prompt;
- $scope.dlg.value = value;
-
- var controller = function ($modalInstance) {
- $scope.dlg.ok = function () {
- callback($scope.dlg.value);
- $modalInstance.close();
- };
- $scope.dlg.cancel = function () {
- $modalInstance.dismiss();
- };
- };
-
- $modal.open({
- backdrop: 'static',
- keyboard: true,
- scope: $scope,
- modalFade: true,
- template: '<div class="modal-header">' +
- '<h3 class="modal-title">{{dlg.title}}</h3>' +
- '</div>' +
- '<div class="modal-body">' +
- '<form class="form-horizontal" role="form">' +
- '<div class="form-group">' +
- '<label for="inputOption" class="col-sm-3 control-label" i18n="habmin.ruleValue"></label>' +
- '<div class="col-sm-9">' +
- '<input type="text" class="form-control" ng-model="dlg.value">' +
- '</div>' +
- '</div>' +
- '</div>' +
- '</form>' +
- '</div>' +
- '<div class="modal-footer">' +
- '<button class="btn btn-primary" ng-click="dlg.ok()" i18n="common.save"></button>' +
- '<button class="btn btn-warning" ng-click="dlg.cancel()" i18n="common.cancel"></button>' +
- '</div>',
- controller: controller
- });
- };
- */

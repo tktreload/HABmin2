@@ -7,7 +7,9 @@
  *
  * (c) 2014-2015 Chris Jackson (chris@cd-jackson.com)
  */
-angular.module("openhabBlockly", [])
+angular.module("openhabBlockly", [
+    'ngLocalize',
+])
     .provider("openhabBlockly", function () {
         this.options = {
             path: "assets/",
@@ -74,7 +76,7 @@ angular.module("openhabBlockly", [])
         };
     })
 
-    .directive('ngBlockly', function ($window, $timeout, $rootScope, openhabBlockly) {
+    .directive('ngBlockly', function ($window, $timeout, $rootScope, locale, openhabBlockly) {
         return {
             restrict: 'E',
             scope: { // Isolate scope
@@ -86,7 +88,7 @@ angular.module("openhabBlockly", [])
                     sounds: false,
                     trashcan: true,
                     toolbox: '<xml>' +
-                    '<category name="Logic" id="toolbox-green">' +
+                    '<category name="' + locale.getString('blockly.TOOLBOX_LOGIC') + '" id="toolbox-logic">' +
                     '<block type="controls_if"></block>' +
                     '<block type="logic_compare"></block>' +
                     '<block type="logic_operation"></block>' +
@@ -94,7 +96,7 @@ angular.module("openhabBlockly", [])
                     '<block type="logic_ternary"></block>' +
                     '<block type="logic_boolean"></block>' +
                     '</category>' +
-                    '<category name="Loops" id="toolbox-blue">' +
+                    '<category name="' + locale.getString('blockly.TOOLBOX_LOOPS') + '" id="toolbox-loops">' +
                     '<block type="controls_repeat_ext">' +
                     '<value name="TIMES">' +
                     '<block type="math_number">' +
@@ -103,7 +105,7 @@ angular.module("openhabBlockly", [])
                     '</value>' +
                     '</block>' +
                     '</category>' +
-                    '<category name="Math" id="toolbox-blue1">' +
+                    '<category name="' + locale.getString('blockly.TOOLBOX_MATH') + '" id="toolbox-math">' +
                     '<block type="math_number"></block>' +
                     '<block type="math_arithmetic"></block>' +
                     '<block type="math_constrain"></block>' +
